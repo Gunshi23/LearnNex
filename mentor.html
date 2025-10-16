@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apply as Mentor | Learnnex</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide icons (for clean UI icons) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* Custom font */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #f7f9fb; /* Light background for the whole page */
+        }
+        .form-container {
+            /* Ensure the form container doesn't get too wide on large screens */
+            max-width: 1000px;
+            width: 95%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+        }
+        /* Custom styles for the phone input group to simulate the country code selector */
+        .phone-input-group {
+            display: flex;
+            align-items: center;
+        }
+        .country-code-prefix {
+            padding: 0.5rem 0.75rem;
+            background-color: #e5e7eb;
+            border: 1px solid #d1d5db;
+            border-right: none;
+            border-radius: 0.5rem 0 0 0.5rem;
+            color: #4b5563;
+            font-weight: 500;
+        }
+        .phone-input {
+            flex-grow: 1;
+            border-left: none !important;
+            border-radius: 0 0.5rem 0.5rem 0 !important;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="form-container bg-white rounded-xl overflow-hidden shadow-2xl">
+        <div class="md:flex h-full">
+
+            <!-- Left Section: Visual/Image -->
+            <div class="md:w-1/2 p-8 md:p-12 flex flex-col justify-center items-center text-white bg-blue-700">
+                <div class="max-w-xs text-center">
+                    <img src="https://placehold.co/400x300/ffffff/000000?text=Learnnex+Mentor+Visual" alt="Mentorship Visualization" class="w-full h-auto rounded-lg shadow-lg mb-6">
+                    <h2 class="text-3xl font-bold mb-4">Empower the Next Generation</h2>
+                    <p class="text-blue-200">Join the Learnnex community of expert mentors and help shape the future of learning. Share your domain expertise and make a lasting impact.</p>
+                </div>
+            </div>
+
+            <!-- Right Section: Application Form -->
+            <div class="md:w-1/2 p-8 md:p-12">
+                <h1 class="text-3xl font-extrabold text-gray-900 mb-8">Let's get you started!</h1>
+
+                <form id="mentorForm" class="space-y-6">
+                    <!-- Name Field -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 flex items-center">* Name</label>
+                        <input type="text" id="name" name="name" required placeholder="John Doe"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Email Field -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 flex items-center">* Email</label>
+                        <input type="email" id="email" name="email" required placeholder="john.doe@example.com"
+                               class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <!-- Phone Field (Simulated Country Code) -->
+                    <div>
+                        <label for="phone" class="block text-sm font-medium text-gray-700 flex items-center">* Phone</label>
+                        <div class="mt-1 phone-input-group">
+                            <span class="country-code-prefix text-sm">+91</span>
+                            <input type="tel" id="phone" name="phone" required placeholder="98765-43210"
+                                   class="phone-input block w-full px-3 py-2 border border-gray-300 shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        </div>
+                    </div>
+
+                    <!-- Domain Field -->
+                    <div>
+                        <label for="domain" class="block text-sm font-medium text-gray-700 flex items-center">* Which of the following domains are you experienced in?</label>
+                        <div class="mt-1 relative">
+                            <select id="domain" name="domain" required
+                                    class="block appearance-none w-full px-3 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500 bg-white pr-10">
+                                <option value="" disabled selected>Select a Domain</option>
+                                <option value="Technology">Technology & Software Development</option>
+                                <option value="Business">Business & Management</option>
+                                <option value="Design">Design & UX/UI</option>
+                                <option value="Finance">Finance & Accounting</option>
+                                <option value="Marketing">Marketing & Sales</option>
+                                <option value="DataScience">Data Science & AI</option>
+                                <option value="Other">Other</option>
+                            </select>
+                            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+                                <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"/></svg>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hidden status message box -->
+                    <div id="statusMessage" class="hidden p-4 rounded-lg text-sm transition-all duration-300" role="alert"></div>
+
+                    <!-- Submission Button -->
+                    <div>
+                        <button type="submit" id="submitButton"
+                                class="w-full flex justify-center items-center py-3 px-4 border border-transparent rounded-lg shadow-sm text-lg font-bold text-white bg-gray-900 hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition duration-150 ease-in-out disabled:opacity-50">
+                            <span id="buttonText">START APPLICATION</span>
+                            <svg id="spinner" class="animate-spin -ml-1 mr-3 h-5 w-5 text-white hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="mt-8 text-center">
+                    <img src="https://placehold.co/100x30/007bff/ffffff?text=Learnnex" alt="Learnnex Logo" class="h-6 mx-auto">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, collection, getDocs, query, where, Timestamp, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        
+        // --- GLOBAL FIREBASE/APP VARIABLES (MANDATORY) ---
+        // These variables are automatically provided by the Canvas environment.
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        // __firebase_config contains the API key and other project credentials.
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        // __initial_auth_token is used for secure user sign-in.
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let db;
+        let auth;
+        let userId = 'anonymous'; // Default placeholder
+
+        const form = document.getElementById('mentorForm');
+        const statusMessage = document.getElementById('statusMessage');
+        const submitButton = document.getElementById('submitButton');
+        const buttonText = document.getElementById('buttonText');
+        const spinner = document.getElementById('spinner');
+
+        /**
+         * Converts a DOM element to JSON for Firestore storage.
+         * @param {HTMLFormElement} formElement - The form element to serialize.
+         * @returns {Object} A JSON object containing form data.
+         */
+        function serializeForm(formElement) {
+            const formData = new FormData(formElement);
+            const data = {};
+            for (const [key, value] of formData.entries()) {
+                data[key] = value.toString().trim();
+            }
+            return data;
+        }
+
+        /**
+         * Displays a status message to the user.
+         * @param {string} message - The message content.
+         * @param {string} type - 'success' or 'error'.
+         */
+        function showStatus(message, type) {
+            statusMessage.textContent = message;
+            statusMessage.className = `p-4 rounded-lg text-sm transition-all duration-300 block`;
+            
+            if (type === 'success') {
+                statusMessage.classList.add('bg-green-100', 'text-green-800');
+            } else if (type === 'error') {
+                statusMessage.classList.add('bg-red-100', 'text-red-800');
+            } else {
+                statusMessage.classList.add('bg-blue-100', 'text-blue-800');
+            }
+        }
+
+        /**
+         * Sets the loading state for the button.
+         * @param {boolean} isLoading - True to show spinner, false otherwise.
+         */
+        function setLoading(isLoading) {
+            submitButton.disabled = isLoading;
+            if (isLoading) {
+                buttonText.textContent = 'SUBMITTING...';
+                spinner.classList.remove('hidden');
+            } else {
+                buttonText.textContent = 'START APPLICATION';
+                spinner.classList.add('hidden');
+            }
+        }
+
+        /**
+         * Checks if an application from this email already exists to prevent duplicates.
+         * @param {string} email - The email to check.
+         * @returns {Promise<boolean>} True if application exists, false otherwise.
+         */
+        async function checkDuplicateApplication(email) {
+            const collectionPath = `/artifacts/${appId}/public/data/mentor_applications`;
+            const q = query(collection(db, collectionPath), where("email", "==", email));
+            
+            try {
+                const querySnapshot = await getDocs(q);
+                return !querySnapshot.empty;
+            } catch (e) {
+                console.error("Error checking for duplicates:", e);
+                // Assume no duplicate if check fails to allow application submission
+                return false; 
+            }
+        }
+
+        /**
+         * Main function to handle form submission.
+         * @param {Event} event - The form submission event.
+         */
+        async function handleSubmit(event) {
+            event.preventDefault();
+            statusMessage.classList.add('hidden');
+            setLoading(true);
+
+            const formData = serializeForm(form);
+
+            try {
+                // 1. Check for duplicate application
+                const isDuplicate = await checkDuplicateApplication(formData.email);
+                if (isDuplicate) {
+                    showStatus("An application with this email address has already been submitted.", 'error');
+                    setLoading(false);
+                    return;
+                }
+
+                // 2. Prepare the data payload
+                const applicationData = {
+                    ...formData,
+                    userId: userId,
+                    timestamp: Timestamp.now(),
+                    status: 'Pending Review'
+                };
+
+                // 3. Define Firestore path for PUBLIC data
+                const collectionPath = `/artifacts/${appId}/public/data/mentor_applications`;
+                
+                // Use the email as a document ID for easier lookups
+                const docRef = doc(db, collectionPath, applicationData.email.toLowerCase());
+
+                // 4. Save the document
+                await setDoc(docRef, applicationData);
+
+                showStatus("Success! Your mentor application has been submitted for review. Thank you for your interest!", 'success');
+                form.reset(); // Clear the form on successful submission
+
+            } catch (error) {
+                console.error("Error submitting mentor application:", error);
+                showStatus("An unexpected error occurred during submission. Please try again.", 'error');
+            } finally {
+                setLoading(false);
+            }
+        }
+
+
+        /**
+         * Initializes Firebase and authenticates the user.
+         */
+        async function initializeFirebase() {
+            try {
+                // Enable debug logging for better visibility in the console
+                setLogLevel('debug');
+                
+                if (!Object.keys(firebaseConfig).length) {
+                    console.error("Firebase config is missing or invalid.");
+                    showStatus("System Error: Firebase configuration not found. Data cannot be saved.", 'error');
+                    return;
+                }
+
+                const app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Authenticate the user using the custom token provided by the environment
+                if (initialAuthToken) {
+                    const userCredential = await signInWithCustomToken(auth, initialAuthToken);
+                    userId = userCredential.user.uid;
+                    console.log("Firebase: Signed in securely with custom token. User ID:", userId);
+                } else {
+                    // Fallback to anonymous sign-in if no token is available
+                    const userCredential = await signInAnonymously(auth);
+                    userId = userCredential.user.uid;
+                    console.log("Firebase: Signed in anonymously. User ID:", userId);
+                }
+
+                // Attach event listener after successful initialization
+                form.addEventListener('submit', handleSubmit);
+                console.log("Firebase initialized successfully. Ready to accept applications.");
+
+            } catch (error) {
+                console.error("Firebase Initialization or Authentication Failed:", error);
+                showStatus("Authentication Error: Failed to connect or sign in to the database. Check console for details.", 'error');
+            }
+        }
+
+        // Initialize everything on page load
+        initializeFirebase();
+    </script>
+</body>
+</html>

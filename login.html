@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnnex Authentication</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#4f46e5', // Indigo-600
+                        'secondary': '#6366f1', // Indigo-500
+                        'accent': '#a5b4fc', // Indigo-300
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Define accent color variable for custom CSS focus ring */
+        :root {
+            --accent-color-rgb: 165, 180, 252; /* Indigo-300 from tailwind config */
+        }
+
+        /* Apply smooth transitions to interactive elements */
+        .input-field, .btn-primary {
+            transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Animations for Card Entry --- */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Apply the animation to the cards */
+        .animated-card {
+            animation: fadeInUp 0.8s cubic-bezier(0.68, -0.55, 0.27, 1.55) forwards;
+            opacity: 0; /* Start hidden */
+        }
+        
+        /* --- Enhanced Interaction Effects --- */
+        
+        /* Enhanced Button Hover Effect (slight lift and deeper shadow) */
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.01);
+            box-shadow: 0 10px 15px -3px rgba(79, 70, 229, 0.5), 0 4px 6px -2px rgba(79, 70, 229, 0.2); /* Custom primary color shadow */
+        }
+        
+        /* Enhanced Input Focus Effect (using custom CSS variable for a deeper ring look) */
+        .input-field:focus {
+            box-shadow: 0 0 0 4px var(--accent-color-rgb, rgba(165, 180, 252, 0.5)); 
+        }
+    </style>
+</head>
+<body class="bg-gray-50 flex items-center justify-center min-h-screen p-4 font-sans">
+
+    <!-- Main Container -->
+    <div class="w-full max-w-md">
+
+        <!-- Logo/Header -->
+        <header class="text-center mb-10">
+            <h1 class="text-5xl font-extrabold text-primary tracking-tight">
+                Learnnex
+            </h1>
+            <!-- Dynamic Subtitle -->
+            <p id="authSubtitle" class="mt-2 text-gray-600 text-lg">Sign in to start learning</p>
+        </header>
+
+        <!-- Login Card -->
+        <div id="loginCard" class="bg-white p-8 md:p-10 rounded-xl shadow-2xl border border-gray-100 transform hover:shadow-primary/20 transition duration-500 animated-card">
+            
+            <form id="loginForm" class="space-y-6">
+                <!-- Email Input -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="email" name="email" required placeholder="you@example.com"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none placeholder-gray-400 text-gray-900"
+                           value="">
+                </div>
+
+                <!-- Password Input -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                    <input type="password" id="password" name="password" required placeholder="••••••••"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none text-gray-900">
+                </div>
+                
+                <!-- Forgot Password / Remember Me section -->
+                <div class="flex items-center justify-between text-sm">
+                    <div class="flex items-center">
+                        <input id="remember-me" name="remember-me" type="checkbox"
+                               class="h-4 w-4 text-primary rounded border-gray-300 focus:ring-secondary">
+                        <label for="remember-me" class="ml-2 block text-gray-900">
+                            Remember me
+                        </label>
+                    </div>
+                    <a href="#" class="font-semibold text-primary hover:text-secondary transition-colors">
+                        Forgot password?
+                    </a>
+                </div>
+
+                <!-- Login Button -->
+                <div>
+                    <button type="submit" id="loginBtn"
+                            class="btn-primary w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Log in
+                    </button>
+                </div>
+            </form>
+
+            <!-- Login Status/Message Area -->
+            <div id="loginMessage" class="mt-6 text-center text-sm font-medium text-gray-600">
+                Don't have an account? 
+                <a href="#" id="showSignupLink" class="text-primary hover:text-secondary font-semibold transition-colors">Sign up here</a>
+            </div>
+            
+        </div>
+        
+        <!-- Signup Card (Initially hidden) -->
+        <div id="signupCard" class="bg-white p-8 md:p-10 rounded-xl shadow-2xl border border-gray-100 transform hover:shadow-primary/20 transition duration-500 hidden">
+            <form id="signupForm" class="space-y-6">
+                
+                <!-- Full Name Input -->
+                <div>
+                    <label for="fullName" class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" required placeholder="John Doe"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none placeholder-gray-400 text-gray-900">
+                </div>
+                
+                <!-- Student ID Input -->
+                <div>
+                    <label for="studentId" class="block text-sm font-medium text-gray-700 mb-1">Student ID/Reg. No.</label>
+                    <input type="text" id="studentId" name="studentId" required placeholder="LN-12345"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none placeholder-gray-400 text-gray-900">
+                </div>
+
+                <!-- Grade/Course Select -->
+                <div>
+                    <label for="gradeCourse" class="block text-sm font-medium text-gray-700 mb-1">Grade Level / Course</label>
+                    <select id="gradeCourse" name="gradeCourse" required 
+                            class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none text-gray-900 bg-white">
+                        <option value="" disabled selected>Select your course</option>
+                        <option value="9th">Grade 9 (Secondary)</option>
+                        <option value="10th">Grade 10 (Secondary)</option>
+                        <option value="Calculus">University: Calculus I</option>
+                        <option value="WebDev">University: Web Development</option>
+                    </select>
+                </div>
+
+                <!-- Email Input (needs separate ID for signup) -->
+                <div>
+                    <label for="signupEmail" class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                    <input type="email" id="signupEmail" name="signupEmail" required placeholder="you@example.com"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none placeholder-gray-400 text-gray-900">
+                </div>
+
+                <!-- Password Input (needs separate ID for signup) -->
+                <div>
+                    <label for="signupPassword" class="block text-sm font-medium text-gray-700 mb-1">Create Password</label>
+                    <input type="password" id="signupPassword" name="signupPassword" required placeholder="••••••••"
+                           class="input-field w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-primary focus:border-primary focus:outline-none text-gray-900">
+                </div>
+
+                <!-- Signup Button -->
+                <div>
+                    <button type="submit" id="signupBtn"
+                            class="btn-primary w-full flex justify-center py-3 px-4 border border-transparent rounded-lg shadow-md text-base font-semibold text-white bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                        Sign Up
+                    </button>
+                </div>
+            </form>
+            
+            <!-- Signup Status/Message Area -->
+            <div id="signupMessage" class="mt-6 text-center text-sm font-medium text-gray-600">
+                Already have an account? 
+                <a href="#" id="showLoginLink" class="text-primary hover:text-secondary font-semibold transition-colors">Log in here</a>
+            </div>
+        </div>
+        
+    </div>
+    
+    <script type="module">
+        // --- Firebase Imports ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // --- Global Firebase Variables ---
+        let app;
+        let auth;
+        let db; 
+        let userId = null;
+
+        // --- Element References ---
+        const loginCard = document.getElementById('loginCard');
+        const signupCard = document.getElementById('signupCard');
+        const authSubtitle = document.getElementById('authSubtitle');
+        
+        const loginForm = document.getElementById('loginForm');
+        const loginEmailInput = document.getElementById('email');
+        const loginPasswordInput = document.getElementById('password');
+        const loginMessageDisplay = document.getElementById('loginMessage');
+        const loginBtn = document.getElementById('loginBtn');
+
+        const signupForm = document.getElementById('signupForm');
+        const signupMessageDisplay = document.getElementById('signupMessage');
+        const signupBtn = document.getElementById('signupBtn');
+        
+        // --- Helper Function for Messages and UI State ---
+        const showMessage = (displayElement, text, type) => {
+            let colorClass = 'text-gray-600';
+            displayElement.classList.remove('text-red-500', 'text-green-600', 'text-blue-500', 'font-bold');
+
+            if (type === 'error') {
+                colorClass = 'text-red-500 font-bold';
+            } else if (type === 'success') {
+                colorClass = 'text-green-600 font-bold';
+            } else if (type === 'info') {
+                colorClass = 'text-blue-500';
+            }
+            
+            displayElement.innerHTML = text;
+            displayElement.classList.add(colorClass);
+        };
+        
+        const setFormState = (formType, isLoading) => {
+            const btn = formType === 'login' ? loginBtn : signupBtn;
+            btn.disabled = isLoading;
+            btn.innerHTML = isLoading ? 
+                `<svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 
+                ${formType === 'login' ? 'Logging In...' : 'Registering...'}` 
+                : (formType === 'login' ? 'Log in' : 'Sign Up');
+        };
+
+        const resetLoginMessage = () => {
+            loginMessageDisplay.innerHTML = `Don't have an account? <a href="#" id="showSignupLink" class="text-primary hover:text-secondary font-semibold transition-colors">Sign up here</a>`;
+            loginMessageDisplay.classList.remove('text-red-500', 'text-green-600', 'text-blue-500', 'font-bold');
+            // Re-attach event listener
+            document.getElementById('showSignupLink').addEventListener('click', (e) => { e.preventDefault(); showView('signup'); });
+        };
+
+        const resetSignupMessage = () => {
+            signupMessageDisplay.innerHTML = `Already have an account? <a href="#" id="showLoginLink" class="text-primary hover:text-secondary font-semibold transition-colors">Log in here</a>`;
+            signupMessageDisplay.classList.remove('text-red-500', 'text-green-600', 'text-blue-500', 'font-bold');
+            // Re-attach event listener
+            document.getElementById('showLoginLink').addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
+        };
+
+        // --- View Switching Logic ---
+        const showView = (view) => {
+            loginCard.classList.remove('animated-card');
+            signupCard.classList.remove('animated-card');
+            
+            loginCard.classList.add('transition', 'duration-300');
+            signupCard.classList.add('transition', 'duration-300');
+
+            if (view === 'signup') {
+                loginCard.classList.add('opacity-0', 'hidden');
+                signupCard.classList.remove('opacity-0', 'hidden');
+                void signupCard.offsetWidth;
+                signupCard.classList.add('animated-card');
+
+                authSubtitle.textContent = 'Register your student account';
+                resetSignupMessage();
+            } else { // 'login'
+                signupCard.classList.add('opacity-0', 'hidden');
+                loginCard.classList.remove('opacity-0', 'hidden');
+                
+                void loginCard.offsetWidth;
+                loginCard.classList.add('animated-card');
+
+                authSubtitle.textContent = 'Sign in to start learning';
+                resetLoginMessage();
+            }
+        };
+
+        // --- Firebase Initialization ---
+        const initFirebase = async () => {
+            try {
+                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.warn("Firebase config is missing. Authentication functionality will be limited.");
+                    return;
+                }
+
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+                setLogLevel('debug'); // Enable debug logging for console
+
+                // Set up Auth State Listener
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("User signed in with UID:", userId);
+                        // In a production app, this is where you'd redirect
+                    } else {
+                        userId = null;
+                        console.log("User signed out.");
+                    }
+                });
+
+                // Initial sign-in (using custom token or anonymously)
+                const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+                
+                if (token) {
+                    await signInWithCustomToken(auth, token);
+                    console.log("Signed in with custom token.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Signed in anonymously.");
+                }
+
+            } catch (error) {
+                console.error("Firebase initialization or initial sign-in failed:", error);
+            }
+        };
+
+
+        // --- Form Handlers ---
+
+        const handleLogin = async (event) => {
+            event.preventDefault();
+            resetLoginMessage();
+            
+            const email = loginEmailInput.value.trim();
+            const password = loginPasswordInput.value.trim();
+
+            if (!auth) {
+                showMessage(loginMessageDisplay, 'Firebase not initialized. Cannot log in.', 'error');
+                return;
+            }
+
+            if (!email || !password) {
+                showMessage(loginMessageDisplay, 'Please enter both email and password.', 'error');
+                return;
+            }
+            
+            setFormState('login', true);
+            showMessage(loginMessageDisplay, 'Attempting to log in...', 'info');
+
+            try {
+                const userCredential = await signInWithEmailAndPassword(auth, email, password);
+                console.log("Login Successful:", userCredential.user);
+                // The onAuthStateChanged listener will handle setting the userId
+                showMessage(loginMessageDisplay, `Welcome back! Login successful.`, 'success');
+
+                // Simulate redirect after a short delay
+                setTimeout(() => { /* window.location.href = "/dashboard"; */ console.log("Redirecting..."); }, 1500);
+
+            } catch (error) {
+                console.error("Login Failed:", error.code, error.message);
+                let errorMessage = 'Login failed. Please check your credentials.';
+                if (error.code === 'auth/invalid-email' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                    errorMessage = 'Invalid email or password.';
+                } else if (error.code === 'auth/too-many-requests') {
+                    errorMessage = 'Too many login attempts. Try again later.';
+                }
+                showMessage(loginMessageDisplay, errorMessage, 'error');
+            } finally {
+                setFormState('login', false);
+            }
+        };
+        
+        const handleSignup = async (event) => {
+            event.preventDefault();
+            resetSignupMessage();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const studentId = document.getElementById('studentId').value.trim();
+            const gradeCourse = document.getElementById('gradeCourse').value;
+            const email = document.getElementById('signupEmail').value.trim();
+            const password = document.getElementById('signupPassword').value.trim();
+
+            if (!auth) {
+                showMessage(signupMessageDisplay, 'Firebase not initialized. Cannot sign up.', 'error');
+                return;
+            }
+
+            if (!fullName || !studentId || !gradeCourse || !email || !password) {
+                showMessage(signupMessageDisplay, 'Please fill in all required student details.', 'error');
+                return;
+            }
+            
+            setFormState('signup', true);
+            showMessage(signupMessageDisplay, 'Registering new student account...', 'info');
+
+            try {
+                const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                console.log("Signup Successful:", userCredential.user);
+                
+                // NOTE: In a real app, you would use db.collection('students').doc(userCredential.user.uid).set({...}) here
+                const studentData = { 
+                    fullName, 
+                    studentId, 
+                    gradeCourse, 
+                    email, 
+                    registeredAt: new Date().toISOString() 
+                };
+                console.log("Student Metadata (would be saved to Firestore):", studentData);
+
+                showMessage(signupMessageDisplay, `Account created for ${fullName}! You can now log in.`, 'success');
+                
+                // Switch back to login after a short success message
+                setTimeout(() => showView('login'), 2500);
+
+            } catch (error) {
+                console.error("Signup Failed:", error.code, error.message);
+                let errorMessage = 'Registration failed.';
+                if (error.code === 'auth/email-already-in-use') {
+                    errorMessage = 'This email address is already registered.';
+                } else if (error.code === 'auth/weak-password') {
+                    errorMessage = 'Password should be at least 6 characters.';
+                } else if (error.code === 'auth/invalid-email') {
+                     errorMessage = 'The email address is not valid.';
+                }
+                showMessage(signupMessageDisplay, errorMessage, 'error');
+            } finally {
+                setFormState('signup', false);
+            }
+        };
+
+
+        // --- Initialization and Event Listeners ---
+        
+        const setupEventListeners = () => {
+             // Attach form submission handlers
+            loginForm.addEventListener('submit', handleLogin);
+            signupForm.addEventListener('submit', handleSignup);
+            
+            // Attach view switch handlers
+            // Need to wait until the document is loaded to ensure these elements exist
+            document.getElementById('showSignupLink').addEventListener('click', (e) => { e.preventDefault(); showView('signup'); });
+            document.getElementById('showLoginLink').addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
+        };
+        
+        window.onload = async () => {
+            await initFirebase();
+            setupEventListeners();
+        };
+
+    </script>
+</body>
+</html>

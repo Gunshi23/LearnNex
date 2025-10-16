@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnnex - Upskill Your Workforce</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" xintegrity="sha512-SnH5WK+bZxgPHs44uWIX+LLMD/cd8k5IzXG+Qp/wX7/8tLpI8sT4i/Rk0H/I1uQjC3/q/l1P4x8Q+w5y6Q==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        /* Define custom colors and font for Tailwind */
+        :root {
+            --color-primary: #1A375D; /* Deep Navy Blue */
+            --color-secondary: #3B82F6; /* Bright Blue CTA */
+            --color-background-1: #ffffff;
+            --color-background-2: #F4F8FC; /* Very Light Blue/White */
+            --color-text-light: #525252;
+        }
+
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .bg-secondary { background-color: var(--color-secondary); }
+        .text-secondary { color: var(--color-secondary); }
+        .bg-cream { background-color: var(--color-background-2); }
+
+        body { font-family: 'Inter', sans-serif; }
+
+        /* Custom style for the subtle background pattern in Learn Across Industries */
+        .pattern-bg {
+            background-color: var(--color-background-2);
+            /* New pattern colors matching the blue theme */
+            background-image: linear-gradient(135deg, #E3E8EC 25%, transparent 25%), linear-gradient(225deg, #E3E8EC 25%, transparent 25%), linear-gradient(45deg, #E3E8EC 25%, transparent 25%), linear-gradient(315deg, #E3E8EC 25%, #F4F8FC 25%);
+            background-position: 10px 0, 10px 0, 0 0, 0 0;
+            background-size: 20px 20px;
+        }
+
+        /* Custom scrollbar to match dark theme in footer/sections */
+        .scrollable-x::-webkit-scrollbar {
+            height: 6px;
+        }
+        .scrollable-x::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 3px;
+        }
+        .scrollable-x::-webkit-scrollbar-track {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="text-gray-900">
+    <!-- Load Inter Font -->
+    <script>
+        document.head.innerHTML += '<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">';
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': 'var(--color-primary)',
+                        'secondary': 'var(--color-secondary)',
+                        'cream': 'var(--color-background-2)',
+                        'text-light': 'var(--color-text-light)',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <!-- Header / Navbar Mock -->
+    <header class="sticky top-0 z-10 bg-white border-b border-gray-100/50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="text-xl font-extrabold text-primary">Learnnex.</div>
+            <nav class="hidden md:flex space-x-8 text-sm font-medium text-gray-700">
+                <a href="#" class="hover:text-primary transition duration-150">Corporate Training</a>
+                <a href="#" class="hover:text-primary transition duration-150">Programs</a>
+                <a href="#" class="hover:text-primary transition duration-150">About Us</a>
+                <a href="#" class="hover:text-primary transition duration-150">Contact</a>
+            </nav>
+            <button class="px-5 py-2 text-sm font-semibold bg-secondary text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-150">
+                Talk to Sales
+            </button>
+        </div>
+    </header>
+
+    <!-- 1. Hero Section (Image_86f920) -->
+    <section class="bg-white py-16 md:py-24 text-center">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-4">Upskill Your Workforce:</h1>
+            <h2 class="text-4xl md:text-5xl font-bold leading-tight text-primary mb-6">Corporate Training & Workshops</h2>
+            <p class="text-lg text-gray-500 mb-10">Fuel your team's growth with specialized training programs focused on achieving business goals.</p>
+            <button class="px-8 py-3 text-lg font-semibold bg-secondary text-white rounded-xl shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-[1.02]">
+                Upskill Your Team
+            </button>
+        </div>
+    </section>
+
+    <!-- 2. Clients Section (Image_86f920) -->
+    <section class="bg-cream py-16 md:py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h3 class="text-2xl font-bold text-center text-primary mb-12">Our Clients</h3>
+
+            <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-6 gap-6 items-center justify-items-center">
+                <!-- Client Logo Placeholder Functionality -->
+                <script>
+                    function clientLogo(name, width, height, color = 'd3d3d3') {
+                        // Using a simple placeholder URL for mock logos
+                        return `<img src="https://placehold.co/${width}x${height}/${color}/000?text=${name.toUpperCase()}" alt="${name} Logo" class="w-24 h-12 object-contain rounded-lg p-2 bg-white shadow-md">`;
+                    }
+
+                    const logos = [
+                        clientLogo('Unilever', 100, 40),
+                        clientLogo('Adobe', 80, 40),
+                        clientLogo('Razorpay', 120, 30),
+                        clientLogo('Google', 90, 35),
+                        clientLogo('Uber', 90, 40),
+                        clientLogo('Shiprocket', 110, 30),
+                        clientLogo('Vedanta Medical Care', 120, 40, 'f1f1f1'),
+                        clientLogo('Zydus', 80, 30),
+                        clientLogo('Axis Bank', 100, 35),
+                        clientLogo('Ankita & Group', 100, 40, 'f1f1f1'),
+                        clientLogo('Adani Connex', 110, 30),
+                        clientLogo('Domino\'s', 100, 30),
+                        clientLogo('HDFC', 90, 30),
+                        clientLogo('Mazura', 100, 35),
+                        clientLogo('Educart', 90, 30),
+                        clientLogo('Tata Communications', 120, 30),
+                        clientLogo('Shell', 80, 30),
+                    ];
+                    
+                    document.write(logos.join(''));
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Stats Section (Image_86f920) -->
+    <section class="bg-white py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-5 gap-8 text-center">
+                <!-- Stat Card -->
+                <div class="p-4">
+                    <div class="text-3xl md:text-4xl font-extrabold text-primary">6.5M+</div>
+                    <div class="text-sm font-medium text-text-light mt-1">LEARNERS</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-3xl md:text-4xl font-extrabold text-primary">4.5+</div>
+                    <div class="text-sm font-medium text-text-light mt-1">CSAT SCORE</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-3xl md:text-4xl font-extrabold text-primary">400+</div>
+                    <div class="text-sm font-medium text-text-light mt-1">MENTORS FROM TOP BRANDS</div>
+                </div>
+                <div class="p-4">
+                    <div class="text-3xl md:text-4xl font-extrabold text-primary">4000+</div>
+                    <div class="text-sm font-medium text-text-light mt-1">HOURS OF CONTENT</div>
+                </div>
+                <!-- Highlight Card -->
+                <div class="col-span-2 md:col-span-1 p-6 bg-primary rounded-xl shadow-lg flex flex-col justify-center items-center">
+                    <div class="text-4xl font-extrabold text-secondary">+80%</div>
+                    <div class="text-xs font-semibold text-white mt-2 tracking-wider">BUSINESS OUTCOME</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Why Learn Section (Image_86f8fa) -->
+    <section class="bg-cream py-16 md:py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3">ENTERPRISE LEARNING THAT DELIVERS</h4>
+            <h3 class="text-3xl md:text-4xl font-bold text-primary mb-12">Why learn with Learnnex?</h3>
+
+            <div class="grid md:grid-cols-2 gap-x-12 gap-y-10">
+                <!-- Feature 1 -->
+                <div class="flex items-start space-x-4">
+                    <!-- Changed from green to blue -->
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mt-1">
+                        <i class="fas fa-video text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-primary">Self-paced video content</p>
+                        <p class="text-text-light text-sm mt-1">Master new skills on your schedule with our flexible, self-paced video content.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="flex items-start space-x-4">
+                    <!-- Changed from green to blue -->
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mt-1">
+                        <i class="far fa-clock text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-primary">Office hours for Mentors for clearing blockers</p>
+                        <p class="text-text-light text-sm mt-1">Overcome challenges fast with dedicated mentor office hours.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="flex items-start space-x-4">
+                    <!-- Changed from green to blue -->
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mt-1">
+                        <i class="fas fa-rocket text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-primary">Project driven approach to achieve outcomes</p>
+                        <p class="text-text-light text-sm mt-1">Gain practical skills through our project-driven approach for real results.</p>
+                    </div>
+                </div>
+
+                <!-- Feature 4 -->
+                <div class="flex items-start space-x-4">
+                    <!-- Changed from green to blue -->
+                    <div class="flex-shrink-0 w-8 h-8 bg-blue-500/10 text-blue-500 rounded-full flex items-center justify-center mt-1">
+                        <i class="fas fa-globe text-sm"></i>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-primary">Access to network of 1000+ learners</p>
+                        <p class="text-text-light text-sm mt-1">Tap into our vibrant network of learners, enhancing your learning experience.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Mentors Section (Image_86f8fa) -->
+    <section class="bg-white py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3">EXPERT GUIDANCE</h4>
+            <div class="flex justify-between items-end mb-12">
+                <h3 class="text-3xl md:text-4xl font-bold text-primary">Mentors from top brands</h3>
+                <div class="hidden md:flex space-x-2">
+                    <button class="w-10 h-10 border border-gray-300 text-gray-500 rounded-full hover:bg-gray-100 transition duration-150"><i class="fas fa-chevron-left"></i></button>
+                    <button class="w-10 h-10 border border-gray-300 text-gray-500 rounded-full hover:bg-gray-100 transition duration-150"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Mentor Grid (Simulated Carousel) -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 scrollable-x overflow-x-auto pb-4">
+                <script>
+                    function mentorCard(name, role, company, bg) {
+                        const initials = name.split(' ').map(n => n[0]).join('');
+                        return `
+                        <div class="flex flex-col items-center p-4 bg-white rounded-xl shadow-lg hover:shadow-xl transition duration-300 min-w-[150px]">
+                            <!-- Mock Image -->
+                            <div class="w-24 h-24 rounded-full mb-3 bg-gray-200 flex items-center justify-center text-3xl font-bold text-gray-500" style="background-image: url('https://placehold.co/100x100/${bg}/fff?text=${initials}'); background-size: cover; background-position: center;">
+                                <div class="w-full h-full rounded-full ring-4 ring-white shadow-md"></div>
+                            </div>
+                            <p class="font-bold text-sm text-center">${name}</p>
+                            <p class="text-xs text-text-light text-center mt-1">${role}</p>
+                            <div class="mt-3 bg-gray-100 px-3 py-1 text-xs font-semibold rounded-full text-primary">${company}</div>
+                        </div>
+                        `;
+                    }
+
+                    const mentors = [
+                        mentorCard('Manas Sarpande', 'Social Media Lead', 'Dunzo', '90ee90'),
+                        mentorCard('Krishi', 'Prime Data Shopping', 'Amazon', 'f5f5dc'),
+                        mentorCard('Kaushik Sen Doka', 'Marketing Strategist', 'Google', 'add8e6'),
+                        mentorCard('Suraj', 'Former Regional Product Lead, APAC', 'Google', 'ffb6c1'),
+                        mentorCard('Aaruchal Jain', 'Ex-Head of Digital', 'Amazon Mini', 'dda0dd'),
+                        mentorCard('Kartik Singh', 'Product Designer G2', 'Microsoft', '4169e1'),
+                    ];
+                    document.write(mentors.join(''));
+                </script>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Learn Across Industries & Offerings Section (Image_86f8bd) -->
+    <section class="pattern-bg py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Learn Across Industries -->
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3">COMPREHENSIVE SKILLS DEVELOPMENT</h4>
+            <h3 class="text-3xl md:text-4xl font-bold text-primary mb-12">Learn across Industries</h3>
+
+            <div class="grid grid-cols-2 md:grid-cols-6 gap-4 mb-20">
+                <script>
+                    function industryCard(title, iconClass) {
+                        return `
+                        <div class="p-4 sm:p-6 flex flex-col items-center text-center bg-white rounded-xl shadow-lg">
+                            <div class="w-16 h-16 bg-primary text-white rounded-xl flex items-center justify-center mb-3">
+                                <i class="${iconClass} text-2xl"></i>
+                            </div>
+                            <p class="font-semibold text-primary text-sm">${title}</p>
+                        </div>
+                        `;
+                    }
+
+                    const industries = [
+                        industryCard('Product', 'fas fa-search'),
+                        industryCard('Tech', 'fas fa-code'),
+                        industryCard('Design', 'fas fa-rocket'),
+                        industryCard('Marketing', 'fas fa-star'),
+                        industryCard('Business', 'fas fa-briefcase'),
+                        industryCard('Data', 'fas fa-database'),
+                    ];
+                    document.write(industries.join(''));
+                </script>
+            </div>
+
+            <!-- Our Offerings -->
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3 mt-16">TAILORED LEARNING EXPERIENCES</h4>
+            <h3 class="text-3xl md:text-4xl font-bold text-primary mb-12">Our Offerings</h3>
+
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Card 1: Webinar & Workshops -->
+                <div class="bg-primary text-white p-6 md:p-8 rounded-xl shadow-2xl relative overflow-hidden">
+                    <h4 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2">Webinar & Workshops</h4>
+                    <div class="grid grid-cols-2 gap-y-3 text-sm">
+                        <!-- Changed text-secondary checkmark color -->
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Get to know the mentor</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Get an insight into the Program</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Understand your Career Path</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Live Q&A session</span></div>
+                    </div>
+                    <!-- Subtle background icon -->
+                    <i class="fas fa-comments absolute right-[-20px] bottom-[-20px] text-white/5 text-9xl transform rotate-12"></i>
+                </div>
+
+                <!-- Card 2: Mentorship Programs -->
+                <div class="bg-primary text-white p-6 md:p-8 rounded-xl shadow-2xl relative overflow-hidden">
+                    <h4 class="text-2xl font-bold mb-4 border-b border-white/20 pb-2">Mentorship Programs</h4>
+                    <div class="grid grid-cols-2 gap-y-3 text-sm">
+                        <!-- Changed text-secondary checkmark color -->
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Watch videos at your own pace</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Live sessions to resolve doubts</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Learn with hands-on Projects</span></div>
+                        <div class="flex items-center space-x-2"><i class="fas fa-check-circle text-secondary"></i><span>Special guest sessions</span></div>
+                    </div>
+                    <!-- Subtle background icon -->
+                    <i class="fas fa-chalkboard-teacher absolute right-[-20px] bottom-[-20px] text-white/5 text-9xl transform rotate-12"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Influencer Recommendation (Image_86f4c0) -->
+    <section class="bg-white py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-8">GLOBALLY ACCLAIMED</h4>
+            <h3 class="text-3xl md:text-4xl font-bold text-primary mb-12">Recommended by your Favourite Influencers and Creators</h3>
+
+            <div class="bg-primary text-white p-8 md:p-12 rounded-xl shadow-2xl flex flex-col md:flex-row items-center space-y-6 md:space-y-0 md:space-x-8">
+                <!-- Mock Image Placeholder -->
+                <div class="flex-shrink-0 w-24 h-24 rounded-full bg-gray-700 flex items-center justify-center text-white text-xl font-bold ring-4 ring-white/10" style="background-image: url('https://placehold.co/100x100/333/fff?text=AW'); background-size: cover; background-position: center;"></div>
+                
+                <div>
+                    <i class="fas fa-quote-left text-secondary mb-3 text-xl"></i>
+                    <p class="italic text-lg mb-4 leading-relaxed">
+                        "I know Valthau as the guy who is killing it on LinkedIn, because of everything he is doing and he understands the platform so well."
+                    </p>
+                    <p class="font-bold text-lg">Ankur Warikoo</p>
+                    <p class="text-sm text-gray-300">Entrepreneur, Content Creator & Author</p>
+                    <div class="flex space-x-3 mt-4">
+                        <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                        <div class="w-6 h-6 rounded-full bg-gray-700"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Corporate Training Inquiry Form (Image_86f4e3) -->
+    <section class="bg-cream py-16 md:py-20 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12">
+                <!-- Left Side: Title -->
+                <div class="lg:sticky lg:top-10 lg:h-fit">
+                    <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3">INVEST ON GROWTH</h4>
+                    <h3 class="text-4xl md:text-5xl font-bold text-primary leading-tight">Ready to Start Your Growth Journey?</h3>
+                </div>
+
+                <!-- Right Side: Form -->
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-xl">
+                    <h4 class="text-lg font-bold text-primary mb-6">CORPORATE TRAINING INQUIRY FORM</h4>
+                    <form onsubmit="event.preventDefault(); showThankYou();" class="space-y-6">
+                        <!-- Full Name -->
+                        <div>
+                            <label for="full_name" class="block text-sm font-medium text-text-light">Full Name*</label>
+                            <input type="text" id="full_name" placeholder="Enter your full name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-secondary focus:border-secondary transition duration-150">
+                        </div>
+                        <!-- Work Email -->
+                        <div>
+                            <label for="work_email" class="block text-sm font-medium text-text-light">Work Email*</label>
+                            <input type="email" id="work_email" placeholder="Enter your work email" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-secondary focus:border-secondary transition duration-150">
+                        </div>
+                        <!-- Designation -->
+                        <div>
+                            <label for="designation" class="block text-sm font-medium text-text-light">Designation*</label>
+                            <input type="text" id="designation" placeholder="Enter your designation" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-secondary focus:border-secondary transition duration-150">
+                        </div>
+                        <!-- Company Name -->
+                        <div>
+                            <label for="company_name" class="block text-sm font-medium text-text-light">Company Name*</label>
+                            <input type="text" id="company_name" placeholder="Enter your company name" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-secondary focus:border-secondary transition duration-150">
+                        </div>
+                        <!-- Phone Number -->
+                        <div>
+                            <label for="phone_number" class="block text-sm font-medium text-text-light">Phone Number*</label>
+                            <div class="flex space-x-2">
+                                <select class="flex-shrink-0 w-24 px-2 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:ring-secondary focus:border-secondary transition duration-150">
+                                    <option value="+91">IND +91</option>
+                                    <option value="+1">US +1</option>
+                                </select>
+                                <input type="tel" id="phone_number" placeholder="Enter phone number" required class="block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm focus:ring-secondary focus:border-secondary transition duration-150">
+                            </div>
+                        </div>
+                        <!-- Team Size & Program -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label for="team_size" class="block text-sm font-medium text-text-light">Team Size*</label>
+                                <select id="team_size" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:ring-secondary focus:border-secondary transition duration-150">
+                                    <option value="" disabled selected>Select team size</option>
+                                    <option>1-10</option>
+                                    <option>11-50</option>
+                                    <option>51-200</option>
+                                    <option>200+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label for="program_looking" class="block text-sm font-medium text-text-light">Program(s) you looking for*</label>
+                                <select id="program_looking" required class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:ring-secondary focus:border-secondary transition duration-150">
+                                    <option value="" disabled selected>Select program</option>
+                                    <option>Product Management</option>
+                                    <option>Digital Marketing</option>
+                                    <option>UX/UI Design</option>
+                                    <option>Data Science</option>
+                                </select>
+                            </div>
+                        </div>
+                        <!-- How did you hear about us -->
+                        <div>
+                            <label for="hear_about" class="block text-sm font-medium text-text-light">Where did you hear about us?</label>
+                            <select id="hear_about" class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg shadow-sm bg-white focus:ring-secondary focus:border-secondary transition duration-150">
+                                <option value="" disabled selected>Select an option</option>
+                                <option>Social Media</option>
+                                <option>Referral</option>
+                                <option>Search Engine</option>
+                                <option>Other</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="w-full px-6 py-3 mt-4 text-lg font-semibold bg-secondary text-white rounded-xl shadow-lg hover:bg-blue-600 transition duration-300 transform hover:scale-[1.01]">
+                            Request a Callback
+                        </button>
+                    </form>
+                    
+                    <!-- Thank You Modal -->
+                    <div id="thank-you-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div class="bg-white p-8 rounded-xl max-w-sm text-center shadow-2xl">
+                            <!-- Changed text-secondary checkmark color -->
+                            <i class="fas fa-check-circle text-secondary text-4xl mb-4"></i>
+                            <h5 class="text-xl font-bold text-primary mb-2">Thank You!</h5>
+                            <p class="text-text-light">Your callback request has been submitted. We will contact you shortly.</p>
+                            <button onclick="document.getElementById('thank-you-modal').classList.add('hidden')" class="mt-6 px-4 py-2 bg-secondary text-white rounded-lg hover:bg-blue-600">Close</button>
+                        </div>
+                    </div>
+
+                    <script>
+                        function showThankYou() {
+                            document.getElementById('thank-you-modal').classList.remove('hidden');
+                        }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 9. FAQ Section (Image_86f4c0) -->
+    <section class="bg-white py-16 md:py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h4 class="text-sm font-semibold tracking-widest uppercase text-text-light mb-3">STILL UNSURE?</h4>
+            <h3 class="text-3xl md:text-4xl font-bold text-primary mb-12">Frequently Asked Questions</h3>
+
+            <div class="max-w-4xl mx-auto space-y-4">
+                <script>
+                    function faqItem(title, content, isOpen = false) {
+                        return `
+                        <div class="bg-white border-b border-gray-200 cursor-pointer">
+                            <button type="button" class="w-full flex justify-between items-center py-4 px-2 text-left font-semibold text-primary hover:text-secondary transition duration-150" onclick="toggleAccordion(this)">
+                                <span>${title}</span>
+                                <i class="fas fa-chevron-down text-sm transform transition-transform duration-300 ${isOpen ? 'rotate-180' : ''}"></i>
+                            </button>
+                            <div class="px-2 overflow-hidden transition-all duration-300 ease-in-out ${isOpen ? 'max-h-96 py-3' : 'max-h-0'}" style="${isOpen ? '' : 'padding-top: 0; padding-bottom: 0;'}" >
+                                <p class="text-text-light text-sm pb-2">${content}</p>
+                            </div>
+                        </div>
+                        `;
+                    }
+
+                    const faqs = [
+                        faqItem('What is Learnnex?', 'Learnnex is a cutting-edge platform designed to help businesses and professionals scale faster through top tier education. We offer online learning programs that cater to various industries, allowing companies to upskill their teams with practical knowledge from industry experts.', true),
+                        faqItem('How can Learnnex help my business grow?', 'Learnnex helps by providing customized training solutions that fill skill gaps, improve team performance, and directly contribute to achieving key business objectives and innovation goals.'),
+                        faqItem('Can Learnnex customize training for my organization?', 'Yes, we offer tailored training solutions and can customize the program curriculum, duration, and delivery format to specifically meet your organization\'s unique needs and goals.'),
+                        faqItem('Who are the instructors at Learnnex?', 'Our instructors are seasoned professionals, top-tier industry experts, and practitioners from leading global brands, bringing real-world experience and insights to the classroom.'),
+                        faqItem('How is Learnnex different from other learning platforms?', 'Learnnex distinguishes itself through its focus on a project-driven approach, dedicated mentor office hours, and curated programs co-developed with industry leaders to ensure high employability and practical skill transfer.'),
+                        faqItem('What types of businesses can benefit from Learnnex?', 'Businesses of all sizes, from startups to large enterprises across Product, Tech, Design, Marketing, and Data industries, can benefit from Learnnex\'s versatile and relevant programs.'),
+                        faqItem('How do I enroll my team or company in Learnnex programs?', 'You can enroll your team by filling out the corporate inquiry form above. Our sales team will then reach out to discuss your requirements and set up a customized plan.'),
+                    ];
+                    document.write(faqs.join(''));
+                </script>
+            </div>
+            
+            <script>
+                function toggleAccordion(button) {
+                    const content = button.nextElementSibling;
+                    const icon = button.querySelector('i');
+                    const isExpanded = content.classList.contains('max-h-96');
+
+                    // Close all others
+                    document.querySelectorAll('.max-h-96').forEach(item => {
+                        item.classList.remove('max-h-96', 'py-3');
+                        item.style.paddingTop = '0';
+                        item.style.paddingBottom = '0';
+                    });
+                    document.querySelectorAll('.rotate-180').forEach(item => {
+                        item.classList.remove('rotate-180');
+                    });
+
+                    // Toggle current one
+                    if (!isExpanded) {
+                        content.classList.add('max-h-96', 'py-3');
+                        content.style.paddingTop = '12px'; /* Restore padding */
+                        content.style.paddingBottom = '8px'; /* Restore padding */
+                        icon.classList.add('rotate-180');
+                    }
+                }
+            </script>
+        </div>
+    </section>
+
+    <!-- 10. Footer Section (Image_86a341) -->
+    <footer class="bg-primary text-white pt-16 pb-8 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-10">
+                <!-- Column 1: Logo & Social -->
+                <div class="md:col-span-2">
+                    <div class="text-3xl font-extrabold text-white mb-4">Learnnex.</div>
+                    <p class="text-sm text-gray-400 mb-6">Be the first to hear about the newest programs, workshops, and community activities – plus industry news, articles, and special reports.</p>
+                    
+                    <!-- Newsletter Signup -->
+                    <div class="flex">
+                        <input type="email" placeholder="Enter your email" class="p-3 w-full rounded-l-lg text-sm text-gray-800 focus:outline-none focus:ring-2 focus:ring-secondary" />
+                        <!-- Changed hover:bg-green-600 to hover:bg-blue-600 -->
+                        <button class="bg-secondary text-primary font-semibold px-4 rounded-r-lg hover:bg-blue-600 transition duration-150">
+                            Subscribe
+                        </button>
+                    </div>
+
+                    <!-- Social Icons -->
+                    <div class="flex space-x-5 mt-6 text-gray-400">
+                        <a href="#" class="hover:text-white transition duration-150"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-white transition duration-150"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-white transition duration-150"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-white transition duration-150"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Column 2: Links -->
+                <div class="grid grid-cols-2 gap-8 md:col-span-3 lg:grid-cols-4">
+                    <!-- Mentorship Programs -->
+                    <div>
+                        <h5 class="font-bold mb-3 text-secondary uppercase text-xs tracking-wider">Mentorship Programs</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white">Digital Marketing</a></li>
+                            <li><a href="#" class="hover:text-white">Performance Marketing</a></li>
+                            <li><a href="#" class="hover:text-white">UI UX Design</a></li>
+                            <li><a href="#" class="hover:text-white">Product Management</a></li>
+                            <li><a href="#" class="hover:text-white">Management Consulting</a></li>
+                            <li><a href="#" class="hover:text-white">Product Marketing</a></li>
+                        </ul>
+                    </div>
+                    <!-- Workshops -->
+                    <div>
+                        <h5 class="font-bold mb-3 text-secondary uppercase text-xs tracking-wider">Workshops</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white">ChatGPT</a></li>
+                            <li><a href="#" class="hover:text-white">Linkedin Growth</a></li>
+                            <li><a href="#" class="hover:text-white">AI For Consultants</a></li>
+                            <li><a href="#" class="hover:text-white">Product Management</a></li>
+                            <li><a href="#" class="hover:text-white">Marketing Modernised</a></li>
+                            <li><a href="#" class="hover:text-white">Business Modernised</a></li>
+                        </ul>
+                    </div>
+                    <!-- Company -->
+                    <div>
+                        <h5 class="font-bold mb-3 text-secondary uppercase text-xs tracking-wider">Company</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white">About Us</a></li>
+                            <li><a href="#" class="hover:text-white">Contact Us</a></li>
+                            <li><a href="#" class="hover:text-white">Careers</a></li>
+                            <li><a href="#" class="hover:text-white">Help</a></li>
+                        </ul>
+                    </div>
+                    <!-- Engage -->
+                    <div>
+                        <h5 class="font-bold mb-3 text-secondary uppercase text-xs tracking-wider">Engage</h5>
+                        <ul class="space-y-2 text-sm text-gray-400">
+                            <li><a href="#" class="hover:text-white">Upskill Your Team</a></li>
+                            <li><a href="#" class="hover:text-white">Apply as Mentor</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Copyright and Legal Links -->
+            <div class="mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center text-xs text-gray-500">
+                <p>&copy; 2025 Learnnex Pvt. Ltd. All rights reserved.</p>
+                <div class="flex space-x-6 mt-4 md:mt-0">
+                    <a href="#" class="hover:text-white">Privacy Policy</a>
+                    <a href="#" class="hover:text-white">Refund Policy</a>
+                    <a href="#" class="hover:text-white">Terms & Conditions</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

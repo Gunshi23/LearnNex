@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth School Landing</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind to use Inter font and custom colors -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'gs-blue': '#0b3d91',
+                        'gs-light': '#e1e8f7',
+                        'gs-yellow': '#f9f7f0',
+                        'gs-primary': '#1e90ff',
+                        'gs-dark-blue': '#123c4a',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    keyframes: {
+                        scroll: {
+                            '0%': { transform: 'translateX(0)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        }
+                    },
+                    animation: {
+                        'infinite-scroll': 'scroll 30s linear infinite',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        /* Custom styles for the infinite scroll */
+        .avatar-scroll-container {
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        .avatar-scroll-track {
+            display: flex;
+            width: fit-content;
+            animation: infinite-scroll 30s linear infinite;
+        }
+        /* Stops animation on hover for a better user experience */
+        .avatar-scroll-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* Custom styles for dynamic card animation */
+        .workshop-card.active {
+            box-shadow: 0 8px 30px rgba(44, 100, 180, 0.17);
+            transform: scale(1.03) rotate(-1deg);
+            border-color: #1e90ff;
+        }
+        
+        /* Custom image placeholders to match original file names */
+        .mentor1 { background-image: url('https://placehold.co/40x40/1f727c/ffffff?text=M1'); }
+        .mentor2 { background-image: url('https://placehold.co/40x40/3e90ff/ffffff?text=M2'); }
+        .mentor3 { background-image: url('https://placehold.co/40x40/a05d9c/ffffff?text=M3'); }
+        .mentor4 { background-image: url('https://placehold.co/40x40/8c4e4e/ffffff?text=M4'); }
+        .mentor5 { background-image: url('https://placehold.co/40x40/a2602e/ffffff?text=M5'); }
+    </style>
+</head>
+<body class="bg-gray-50 text-gs-blue font-sans">
+
+<!-- MAIN WRAPPER -->
+<div class="mx-auto px-4 md:px-8 lg:px-12">
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-50 bg-white shadow-md p-4 flex items-center justify-between transition-all duration-300">
+        <div class="flex items-center space-x-2">
+            <!-- Logo Placeholder SVG -->
+            <svg class="w-8 h-8 text-gs-primary" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm1-2a1 1 0 112 0v2a1 1 0 11-2 0V7zm4 0a1 1 0 100-2 1 1 0 000 2zm1-2a1 1 0 112 0v2a1 1 0 11-2 0V7z" clip-rule="evenodd"></path></svg>
+            <span class="font-extrabold text-xl text-gs-blue">Growth School</span>
+        </div>
+
+        <!-- Nav Links (Hidden on small screens) -->
+        <div class="hidden lg:flex items-center space-x-6 text-base font-medium">
+            <a href="#workshops" class="hover:text-gs-primary transition">Learn</a>
+            <a href="#success" class="hover:text-gs-primary transition">Success Stories</a>
+            <a href="upskill.html" class="hover:text-gs-primary transition">Upskill your team</a>
+            <a href="about.html" class="hover:text-gs-primary transition">About us</a>
+        </div>
+
+        <!-- Nav Actions -->
+        <div class="flex items-center space-x-3">
+            <a href="login.html" class="px-4 py-2 text-gs-blue border border-gs-blue rounded-lg hover:bg-gs-blue hover:text-white transition duration-200 text-sm font-semibold">Login</a>
+            <a href="mentor.html" class="hidden sm:inline-block px-4 py-2 bg-gs-blue text-white rounded-lg hover:bg-gs-primary transition duration-200 text-sm font-semibold">Apply as Mentor</a>
+        </div>
+    </nav>
+
+    <main class="mt-4">
+        <!-- HERO -->
+        <section class="py-16 md:py-24 bg-gradient-to-br from-indigo-700 via-gs-blue to-blue-900 text-white rounded-3xl mb-12 shadow-2xl overflow-hidden flex flex-col lg:flex-row items-center justify-between px-6 md:px-12">
+            <div class="lg:w-1/2 text-center lg:text-left mb-10 lg:mb-0">
+                <h1 class="text-4xl md:text-5xl font-extrabold leading-tight mb-4">
+                    Become Top 1% in the<br class="hidden sm:inline"> AI-First World
+                </h1>
+                <p class="text-lg md:text-xl text-indigo-200 mb-8">
+                    Whether it is Product, Growth, Design, Business, Tech or Data,<br>
+                    GrowthSchool is the place to learn from top experts in the field to become the Top 1%
+                </p>
+                <a href="#workshops" class="inline-block px-8 py-4 bg-gs-primary text-white font-semibold text-lg rounded-xl shadow-lg hover:bg-blue-600 transition transform hover:scale-105">
+                    Explore Programs &nbsp;&darr;
+                </a>
+            </div>
+            <div class="lg:w-1/2 flex justify-center items-center">
+                <div id="changing-text" class="bg-white/10 backdrop-blur-sm rounded-xl p-6 shadow-2xl text-2xl md:text-3xl font-bold text-gs-light min-w-[200px] text-center transition-opacity duration-500">
+                    Digital Marketer
+                </div>
+            </div>
+        </section>
+
+        <!-- LEARNERS & RATINGS -->
+        <section class="flex flex-col lg:flex-row justify-between items-center bg-gs-yellow rounded-2xl p-6 md:p-8 mb-12 shadow-lg gap-8">
+            <div class="lg:w-2/3 text-center lg:text-left">
+                <h2 class="font-extrabold text-3xl md:text-4xl mb-1 text-gs-blue">
+                    <strong class="text-4xl md:text-5xl">6.5M+</strong> Learners
+                </h2>
+                <p class="text-lg text-gray-700 mb-6">have reaped benefits from our programs</p>
+
+                <!-- Avatar Scroll Section -->
+                <div class="avatar-scroll-container">
+                    <div class="avatar-scroll-track" id="learners-avatars">
+                        <!-- Duplicate content for infinite scroll effect -->
+                        <div class="flex gap-4">
+                            <!-- 8 Avatars -->
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/1f727c/ffffff?text=P1" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Publicis</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/3e90ff/ffffff?text=P2" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Simplilearn</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/a05d9c/ffffff?text=P3" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Cognizant</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/8c4e4e/ffffff?text=P4" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Flipkart</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/a2602e/ffffff?text=P5" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Walmart</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/4f5f9e/ffffff?text=P6" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Teachmint</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/7c4f1f/ffffff?text=P7" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Moneyview</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/2e9a58/ffffff?text=P8" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Nykaa</small>
+                            </div>
+                        </div>
+                        <!-- Second set for seamless looping -->
+                         <div class="flex gap-4">
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/1f727c/ffffff?text=P1" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Publicis</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/3e90ff/ffffff?text=P2" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Simplilearn</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/a05d9c/ffffff?text=P3" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Cognizant</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/8c4e4e/ffffff?text=P4" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Flipkart</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/a2602e/ffffff?text=P5" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Walmart</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/4f5f9e/ffffff?text=P6" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Teachmint</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/7c4f1f/ffffff?text=P7" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-semibold text-gray-600 truncate">Moneyview</small>
+                            </div>
+                            <div class="avatar-card bg-white rounded-xl shadow-md p-2 text-center flex-shrink-0 w-24">
+                                <img src="https://placehold.co/80x80/2e9a58/ffffff?text=P8" alt="Avatar" class="w-full h-16 object-cover rounded-lg mb-2"/>
+                                <small class="text-xs font-bold text-gs-blue truncate">Nykaa</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ratings Card -->
+            <div class="ratings-section flex items-center justify-center bg-white rounded-2xl p-6 shadow-xl w-full lg:w-1/3 min-h-[120px]">
+                <div id="ratings-card" class="flex flex-col items-center justify-center space-y-2 w-full opacity-100 transition-opacity duration-500">
+                    <!-- Content injected by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- WORKSHOPS -->
+        <section class="mb-12" id="workshops">
+            <h2 class="text-2xl md:text-3xl font-extrabold text-gs-blue mb-8">Workshops</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 justify-center">
+
+                <!-- Workshop Card 1: Marketing Mastermind -->
+                <div class="workshop-card bg-white border border-gray-200 rounded-3xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 cursor-pointer" data-link="https://growthschool.io/workshops/ai-marketing">
+                    <div class="bg-yellow-50 text-orange-600 font-bold text-lg rounded-xl p-4 mb-2"><b>Marketing Mastermind</b></div>
+                    <div class="font-semibold text-xl text-gray-800">Generative AI Marketing Mastermind</div>
+                    <div class="text-gs-primary font-medium">2 Days</div>
+                    <div class="text-gs-blue font-extrabold text-xl">&#8377; 499</div>
+                    <div class="flex items-center text-sm text-gray-600 mt-auto">
+                        <img src="https://placehold.co/32x32/1e90ff/ffffff?text=Mentor" alt="Mentor" class="w-8 h-8 rounded-full object-cover mr-2">
+                        +2 Mentors from Samur, Uber & more
+                    </div>
+                </div>
+
+                <!-- Workshop Card 2: Business Mastermind -->
+                <div class="workshop-card bg-white border border-gray-200 rounded-3xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 cursor-pointer" data-link="https://growthschool.io/workshops/ai-business">
+                    <div class="bg-blue-50 text-blue-600 font-bold text-lg rounded-xl p-4 mb-2"><b>Business Mastermind</b></div>
+                    <div class="font-semibold text-xl text-gray-800">Generative AI Business Mastermind</div>
+                    <div class="text-gs-primary font-medium">3 Days</div>
+                    <div class="text-gs-blue font-extrabold text-xl">&#8377; 499</div>
+                    <div class="flex items-center text-sm text-gray-600 mt-auto">
+                        <img src="https://placehold.co/32x32/1e90ff/ffffff?text=Mentor" alt="Mentor" class="w-8 h-8 rounded-full object-cover mr-2">
+                        +2 Mentors from GS, Uber & more
+                    </div>
+                </div>
+
+                <!-- Workshop Card 3: ChatGPT Productivity -->
+                <div class="workshop-card bg-white border border-gray-200 rounded-3xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 cursor-pointer" data-link="https://growthschool.io/workshops/chatgpt-workshop">
+                    <div class="bg-indigo-50 text-indigo-600 font-bold text-lg rounded-xl p-4 mb-2"><b>ChatGPT Productivity</b></div>
+                    <div class="font-semibold text-xl text-gray-800">Generative AI Workshop</div>
+                    <div class="text-gs-primary font-medium">3 Hours</div>
+                    <div class="text-gs-blue font-extrabold text-xl">&#8377; 499</div>
+                    <div class="flex items-center text-sm text-gray-600 mt-auto">
+                        <img src="https://placehold.co/32x32/1e90ff/ffffff?text=Mentor" alt="Mentor" class="w-8 h-8 rounded-full object-cover mr-2">
+                        Vaibhav Sisinty
+                    </div>
+                </div>
+
+                <!-- Workshop Card 4: AI for Consultants -->
+                <div class="workshop-card bg-white border border-gray-200 rounded-3xl p-5 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-[1.02] flex flex-col gap-3 cursor-pointer" data-link="https://growthschool.io/workshops/ai-consultants">
+                    <div class="bg-indigo-50 text-indigo-600 font-bold text-lg rounded-xl p-4 mb-2"><b>AI for Consultants</b></div>
+                    <div class="font-semibold text-xl text-gray-800">AI For Consultants</div>
+                    <div class="text-gs-primary font-medium">3 Hours</div>
+                    <div class="text-gs-blue font-extrabold text-xl">&#8377; 499</div>
+                    <div class="flex items-center text-sm text-gray-600 mt-auto">
+                        <img src="https://placehold.co/32x32/1e90ff/ffffff?text=Mentor" alt="Mentor" class="w-8 h-8 rounded-full object-cover mr-2">
+                        +1 Mentors from BCG
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUCCESS STORIES - Carousel -->
+        <section class="mb-12" id="success">
+            <h3 class="text-lg font-semibold text-gs-primary mb-2">SUCCESS STORIES</h3>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Our Learners at Leading Companies</h1>
+            <div class="relative flex items-center space-x-4">
+                <button class="carousel-btn prev z-10 p-2 bg-white rounded-full shadow-lg text-2xl text-gs-blue hover:bg-gs-primary hover:text-white transition duration-200">&larr;</button>
+                
+                <div class="overflow-hidden w-full">
+                    <div class="flex space-x-4 transition-transform duration-300" id="carousel-track">
+                        <!-- Example cards (12 total for better loop effect) -->
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/888888/ffffff?text=AB" alt="Abhiram" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Abhiram</div>
+                            <div class="text-sm text-gray-600 leading-tight">Senior Social Media Manager<br><strong class="font-bold text-gs-blue">Ogilvy</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Infinity Learn</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/f29b40/ffffff?text=JR" alt="Janki" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Janki R.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Product Designer<br><strong class="font-bold text-gs-blue">Google</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Accenture</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/34a853/ffffff?text=KS" alt="Kartik" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Kartik S.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Data Scientist<br><strong class="font-bold text-gs-blue">Microsoft</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Self-Employed</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/ea4335/ffffff?text=PL" alt="Priya" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Priya L.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Growth Hacker<br><strong class="font-bold text-gs-blue">Swiggy</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>TCS</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/4285f4/ffffff?text=DB" alt="Deepak" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Deepak B.</div>
+                            <div class="text-sm text-gray-600 leading-tight">PM Lead<br><strong class="font-bold text-gs-blue">Zomato</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Amazon</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/7c4f1f/ffffff?text=NK" alt="Niharika" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Niharika K.</div>
+                            <div class="text-sm text-gray-600 leading-tight">UX Researcher<br><strong class="font-bold text-gs-blue">Nykaa</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>MNC Consulting</div>
+                        </div>
+                        <!-- Duplicated for a sense of seamless scroll -->
+                         <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/888888/ffffff?text=AB" alt="Abhiram" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Abhiram</div>
+                            <div class="text-sm text-gray-600 leading-tight">Senior Social Media Manager<br><strong class="font-bold text-gs-blue">Ogilvy</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Infinity Learn</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/f29b40/ffffff?text=JR" alt="Janki" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Janki R.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Product Designer<br><strong class="font-bold text-gs-blue">Google</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Accenture</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/34a853/ffffff?text=KS" alt="Kartik" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Kartik S.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Data Scientist<br><strong class="font-bold text-gs-blue">Microsoft</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Self-Employed</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/ea4335/ffffff?text=PL" alt="Priya" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Priya L.</div>
+                            <div class="text-sm text-gray-600 leading-tight">Growth Hacker<br><strong class="font-bold text-gs-blue">Swiggy</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>TCS</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/4285f4/ffffff?text=DB" alt="Deepak" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Deepak B.</div>
+                            <div class="text-sm text-gray-600 leading-tight">PM Lead<br><strong class="font-bold text-gs-blue">Zomato</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>Amazon</div>
+                        </div>
+                        <div class="success-card bg-white rounded-2xl shadow-lg p-4 w-48 flex-shrink-0 text-center flex flex-col items-center hover:shadow-xl transition-all duration-200 transform hover:scale-[1.03]">
+                            <img src="https://placehold.co/60x60/7c4f1f/ffffff?text=NK" alt="Niharika" class="w-14 h-14 rounded-xl object-cover mb-3"/>
+                            <div class="font-semibold text-base mb-1">Niharika K.</div>
+                            <div class="text-sm text-gray-600 leading-tight">UX Researcher<br><strong class="font-bold text-gs-blue">Nykaa</strong></div>
+                            <div class="text-xs text-gray-400 mt-2">Transitioned from<br>MNC Consulting</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-btn next z-10 p-2 bg-white rounded-full shadow-lg text-2xl text-gs-blue hover:bg-gs-primary hover:text-white transition duration-200">&rarr;</button>
+            </div>
+        </section>
+
+        <!-- GROWTH ADVANTAGE -->
+        <section class="mb-12">
+            <h5 class="text-lg font-semibold text-gs-primary mb-2">DESIGNED FOR YOUR CAREER GROWTH</h5>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Get the GrowthSchool Advantage</h1>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="advantage-card bg-gs-dark-blue text-white rounded-2xl p-6 shadow-xl transition-all duration-200 transform hover:scale-[1.03] flex flex-col items-center text-center">
+                    <img src="https://placehold.co/200x120/5d8b9e/ffffff?text=Industry+Skills" class="w-full max-w-[180px] h-24 object-cover rounded-xl mb-4 opacity-90"/>
+                    <div>
+                        <b class="text-lg">Industry-Relevant Skills</b><br>
+                        <span class="text-gray-300 text-sm">Stay ahead by mastering high-demand skills.</span>
+                    </div>
+                </div>
+                <div class="advantage-card bg-gs-dark-blue text-white rounded-2xl p-6 shadow-xl transition-all duration-200 transform hover:scale-[1.03] flex flex-col items-center text-center">
+                    <img src="https://placehold.co/200x120/4a6e80/ffffff?text=Career+Opp" class="w-full max-w-[180px] h-24 object-cover rounded-xl mb-4 opacity-90"/>
+                    <div>
+                        <b class="text-lg">Career Opportunities</b><br>
+                        <span class="text-gray-300 text-sm">Tap into our network for job opportunities.</span>
+                    </div>
+                </div>
+                <div class="advantage-card bg-gs-dark-blue text-white rounded-2xl p-6 shadow-xl transition-all duration-200 transform hover:scale-[1.03] flex flex-col items-center text-center">
+                    <img src="https://placehold.co/200x120/385d68/ffffff?text=Community" class="w-full max-w-[180px] h-24 object-cover rounded-xl mb-4 opacity-90"/>
+                    <div>
+                        <b class="text-lg">Community at the Center</b><br>
+                        <span class="text-gray-300 text-sm">Join our vibrant community of learners and mentors.</span>
+                    </div>
+                </div>
+                <div class="advantage-card bg-gs-dark-blue text-white rounded-2xl p-6 shadow-xl transition-all duration-200 transform hover:scale-[1.03] flex flex-col items-center text-center">
+                    <img src="https://placehold.co/200x120/264b55/ffffff?text=Hands-on" class="w-full max-w-[180px] h-24 object-cover rounded-xl mb-4 opacity-90"/>
+                    <div>
+                        <b class="text-lg">Learn by Doing</b><br>
+                        <span class="text-gray-300 text-sm">Dive into real challenges, hands-on experience.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALUMNI BRANDS -->
+        <section class="mb-12 text-center">
+            <h4 class="text-xl font-medium text-gray-700 mb-6">Our alumni work at top brands like</h4>
+            <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=Google" alt="Google" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=SWIGGY" alt="Swiggy" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=ZOHO" alt="Zoho" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=PHILIPS" alt="Philips" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=Microsoft" alt="Microsoft" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=ZOMATO" alt="Zomato" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=PAYTM" alt="Paytm" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+                <img src="https://placehold.co/120x40/ffffff/gs-blue?text=HOTSTAR" alt="Hotstar" class="h-8 md:h-10 object-contain grayscale hover:grayscale-0 transition-all duration-300 transform hover:scale-110"/>
+            </div>
+        </section>
+
+        <!-- COMMUNITY EVENTS -->
+        <section class="mb-12" id="community">
+            <h4 class="text-lg font-semibold text-gs-primary mb-2">DIVE INTO OUR COMMUNITY</h4>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Learn Online, Connect Offline</h1>
+            
+            <!-- Tabs -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <button class="comm-tab active px-5 py-2 rounded-lg bg-gs-blue text-white font-medium transition hover:bg-gs-primary" data-tab="meetups">Meet Ups</button>
+                <button class="comm-tab px-5 py-2 rounded-lg bg-white border border-gs-blue text-gs-blue font-medium transition hover:bg-gs-blue hover:text-white" data-tab="brunches">Brunches</button>
+                <button class="comm-tab px-5 py-2 rounded-lg bg-white border border-gs-blue text-gs-blue font-medium transition hover:bg-gs-blue hover:text-white" data-tab="townhalls">Townhalls</button>
+                <button class="comm-tab px-5 py-2 rounded-lg bg-white border border-gs-blue text-gs-blue font-medium transition hover:bg-gs-blue hover:text-white" data-tab="masterclasses">Masterclasses</button>
+                <button class="comm-tab px-5 py-2 rounded-lg bg-white border border-gs-blue text-gs-blue font-medium transition hover:bg-gs-blue hover:text-white" data-tab="mixers">Mixers</button>
+            </div>
+            
+            <!-- Gallery -->
+            <div class="flex flex-wrap gap-6 justify-start" id="community-gallery">
+                <!-- Initial content for Meetups -->
+                <div class="comm-item bg-gs-dark-blue rounded-xl shadow-lg w-full sm:w-60 overflow-hidden transition-all duration-300 transform hover:scale-[1.03] fade-in">
+                    <img src="https://placehold.co/300x150/1e90ff/ffffff?text=Meetup+1" class="w-full h-32 object-cover"/>
+                    <div class="text-white p-4 font-medium text-lg">Gen-AI Meetup <span class="text-cyan-400 block text-sm font-normal">Mumbai</span></div>
+                </div>
+                <div class="comm-item bg-gs-dark-blue rounded-xl shadow-lg w-full sm:w-60 overflow-hidden transition-all duration-300 transform hover:scale-[1.03] fade-in">
+                    <img src="https://placehold.co/300x150/e3486f/ffffff?text=Meetup+2" class="w-full h-32 object-cover"/>
+                    <div class="text-white p-4 font-medium text-lg">Product Meetup <span class="text-cyan-400 block text-sm font-normal">Bengaluru</span></div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-8 p-4 bg-blue-50 rounded-xl">
+                <h2 class="text-4xl font-extrabold text-gs-blue">58+</h2>
+                <span class="text-lg font-medium text-gray-700">MEET UPS IN 8 CITIES</span>
+            </div>
+        </section>
+
+        <!-- INFLUENCER RECOMMENDATION -->
+        <section class="mb-12">
+            <h5 class="text-lg font-semibold text-gs-primary mb-2">GLOBALLY ACCLAIMED</h5>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-8">Recommended by your Favourite Influencers and Creators</h1>
+            
+            <div class="flex flex-col lg:flex-row bg-white rounded-2xl shadow-xl p-8 items-center gap-8">
+                <div class="lg:w-1/3 flex justify-center">
+                    <img src="https://placehold.co/160x160/1e90ff/ffffff?text=Raj+S" alt="Raj Shamani" class="w-40 h-40 rounded-full object-cover shadow-2xl border-4 border-gs-primary"/>
+                </div>
+                <div class="lg:w-2/3">
+                    <blockquote class="text-xl italic text-gray-700 mb-6 border-l-4 border-gs-primary pl-4">
+                        "Vaibhav understands growth, it's like it's in his DNA. Reach, engagement, scale - you name it & he has a growth hack for everything."
+                    </blockquote>
+                    <div class="text-lg font-bold text-gs-blue">
+                        Raj Shamani
+                        <div class="text-base font-medium text-gray-500">Entrepreneur, Podcast Host & Author</div>
+                    </div>
+                    <div class="flex items-center space-x-2 mt-4">
+                        <img src="https://placehold.co/40x40/f44336/ffffff?text=A1" class="w-10 h-10 rounded-full object-cover"/>
+                        <img src="https://placehold.co/40x40/00bcd4/ffffff?text=A2" class="w-10 h-10 rounded-full object-cover"/>
+                        <img src="https://placehold.co/40x40/4caf50/ffffff?text=A3" class="w-10 h-10 rounded-full object-cover"/>
+                        <span class="text-sm text-gray-500 ml-2">+20 Others Recommending</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ANGEL INVESTORS -->
+        <section class="mb-12 text-center">
+            <h5 class="text-lg font-semibold text-gs-primary mb-2">BEHIND OUR GROWTH</h5>
+            <h1 class="text-3xl md:text-4xl font-extrabold mb-4">Backed by the best</h1>
+            <p class="text-lg text-gray-600 mb-8">With the trust of 50+ Angel Investors, we're building futures together</p>
+            <div class="flex flex-wrap justify-center items-center gap-6">
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+1" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+2" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+3" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+4" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+5" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+6" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+7" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+                <img src="https://placehold.co/80x80/293b66/ffffff?text=Angel+8" class="w-16 h-16 rounded-xl border-2 border-gs-blue hover:border-gs-primary transition-all duration-200 transform hover:scale-110"/>
+            </div>
+        </section>
+    </main>
+
+</div>
+<!-- FOOTER -->
+<footer class="bg-gs-dark-blue text-white pt-12 mt-12">
+    <div class="container mx-auto px-4 md:px-8 lg:px-12 pb-8 flex flex-wrap justify-between gap-10">
+        <!-- Logo & Social -->
+        <div class="flex flex-col space-y-4 w-full md:w-auto">
+            <svg class="w-12 h-12 text-white" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM7 9a1 1 0 100-2 1 1 0 000 2zm1-2a1 1 0 112 0v2a1 1 0 11-2 0V7zm4 0a1 1 0 100-2 1 1 0 000 2zm1-2a1 1 0 112 0v2a1 1 0 11-2 0V7z" clip-rule="evenodd"></path></svg>
+            <div class="flex space-x-3">
+                <a href="#" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M22.258 1H.014C-.035 1-.1 1.05-.1 1.13v21.74c0 .08.065.13.11.13h22.235c.045 0 .1-.05.1-.13V1.13c0-.08-.065-.13-.11-.13zM6.924 20.218H3.945V8.016h2.979v12.202zM5.447 6.845a1.765 1.765 0 01-1.766-1.766c0-.974.792-1.765 1.766-1.765s1.766.792 1.766 1.765a1.766 1.766 0 01-1.766 1.766zM20.218 20.218h-2.978v-6.07c0-1.446-.516-2.434-1.808-2.434-1.164 0-1.854.783-2.152 1.54v4.964h-2.979s.04-3.513 0-12.202h2.979v1.792c.4-.606 1.09-1.47 2.66-1.47 1.942 0 3.42 1.272 3.42 4.01V20.218z"/></svg></a>
+                <a href="#" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.791-1.574 2.164-2.727-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-2.719 0-4.925 2.205-4.925 4.925 0 .386.044.757.129 1.11C8.01 9.57 4.25 7.64 1.71 4.79c-.4.68-.631 1.47-.631 2.316 0 1.71.87 3.218 2.191 4.102-.808-.026-1.568-.246-2.231-.616v.06c0 2.38 1.694 4.36 3.93 4.814-.41.11-.843.167-1.29.167-.31 0-.61-.03-.898-.086.626 1.94 2.44 3.355 4.6 3.394-1.68 1.318-3.79 2.1-6.15 2.1-.4 0-.8-.024-1.19-.068 2.17 1.396 4.768 2.213 7.547 2.213 9.055 0 14.008-7.503 14.008-14.008 0-.214-.005-.427-.014-.638.96-.69 1.797-1.548 2.46-2.525z"/></svg></a>
+                <a href="#" class="w-6 h-6 rounded-full bg-white/20 hover:bg-white/40 flex items-center justify-center transition"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm-2 16h-2.5v-8h2.5v8zm-2.75-10.75c-.689 0-1.25-.56-1.25-1.25s.56-1.25 1.25-1.25 1.25.56 1.25 1.25-.56 1.25-1.25 1.25zm13.75 10.75h-2.5v-4c0-1.094-.373-1.84-1.378-1.84-.756 0-1.206.513-1.404.996-.07.174-.06.417-.06.666v4.208h-2.5v-8h2.5v1.077c.338-.635 1.236-1.542 2.766-1.542 1.792 0 3.239 1.177 3.239 3.69v4.775z"/></svg></a>
+            </div>
+        </div>
+
+        <!-- Links -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-x-10 gap-y-8 w-full md:w-auto">
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-gs-primary">Mentorship Programs</h4>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Digital Marketing</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Performance Marketing</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">UI UX Design</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Product Management</a>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-gs-primary">Workshops</h4>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">ChatGPT</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">LinkedIn Growth</a>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-gs-primary">Company</h4>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">About Us</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Contact Us</a>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4 text-gs-primary">Engage</h4>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Upskill Your Team</a>
+                <a href="#" class="block text-sm text-gray-300 hover:text-white transition mb-2">Apply as Mentor</a>
+            </div>
+        </div>
+        
+        <!-- Newsletter -->
+        <div class="w-full md:w-auto mt-4 md:mt-0">
+            <h4 class="font-bold text-lg mb-4 text-gs-primary">Stay Updated</h4>
+            <form id="newsletter-form" class="flex space-x-2">
+                <input type="email" placeholder="Enter your email" class="p-2 rounded-lg text-gs-dark-blue focus:ring-gs-primary focus:border-gs-primary w-full" required/>
+                <button type="submit" class="px-4 py-2 bg-gs-primary text-white font-semibold rounded-lg hover:bg-blue-600 transition">Subscribe</button>
+            </form>
+        </div>
+    </div>
+    
+    <div class="text-center text-sm text-gray-400 border-t border-white/10 py-4">
+        © 2025 Sisinty Pvt. Ltd. All rights reserved.
+    </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+    // --- Data Definition (Replaced image paths with placeholders) ---
+    const texts = [
+        "Digital Marketer",
+        "UI/UX Designer",
+        "Product Manager",
+        "Web Developer"
+    ];
+
+    const ratings = [
+        { logo: "https://placehold.co/40x40/3e90ff/ffffff?text=TR", text: "Rated 4.5/5 (5,647) on Trust" },
+        { logo: "https://placehold.co/40x40/34a853/ffffff?text=G", text: "Google Reviews 4.6/5" },
+        { logo: "https://placehold.co/40x40/0b3d91/ffffff?text=L", text: "Top LinkedIn Partner" }
+    ];
+
+    const tabImages = {
+        "meetups": [
+            {src:"https://placehold.co/300x150/1e90ff/ffffff?text=Gen-AI+Mumbai", desc:"Gen-AI Meetup <span class='text-cyan-400 block text-sm font-normal'>Mumbai</span>"},
+            {src:"https://placehold.co/300x150/e3486f/ffffff?text=Design+Bengaluru", desc:"Design Meetup <span class='text-cyan-400 block text-sm font-normal'>Bengaluru</span>"}
+        ],
+        "brunches": [
+            {src:"https://placehold.co/300x150/5d8b9e/ffffff?text=Brunch+Delhi", desc:"Recreational Brunch <span class='text-cyan-400 block text-sm font-normal'>Delhi</span>"},
+            {src:"https://placehold.co/300x150/4a6e80/ffffff?text=Brunch+Hyd", desc:"Startup Brunch <span class='text-cyan-400 block text-sm font-normal'>Hyderabad</span>"}
+        ],
+        "townhalls": [
+            {src:"https://placehold.co/300x150/385d68/ffffff?text=Townhall+Pune", desc:"Townhall <span class='text-cyan-400 block text-sm font-normal'>Pune</span>"}
+        ],
+        "masterclasses": [
+            {src:"https://placehold.co/300x150/264b55/ffffff?text=Masterclass+BLR", desc:"Masterclass <span class='text-cyan-400 block text-sm font-normal'>Bengaluru</span>"}
+        ],
+        "mixers": [
+            {src:"https://placehold.co/300x150/1a3842/ffffff?text=Mixer+Mumbai", desc:"Mixer Event <span class='text-cyan-400 block text-sm font-normal'>Mumbai</span>"}
+        ]
+    };
+
+    // --- Hero Text Rotation ---
+    let heroIndex = 0;
+    const textElement = document.getElementById('changing-text');
+    if (textElement) {
+        setInterval(() => {
+            textElement.style.opacity = 0;
+            setTimeout(() => {
+                heroIndex = (heroIndex + 1) % texts.length;
+                textElement.textContent = texts[heroIndex];
+                textElement.style.opacity = 1;
+            }, 450);
+        }, 3000); // Increased interval for better reading
+    }
+
+    // --- Rotating Ratings Card ---
+    let ratingsIndex = 0;
+    const ratingsCard = document.getElementById('ratings-card');
+    function updateRatings() {
+        if (!ratingsCard) return;
+
+        ratingsCard.style.opacity = 0;
+        setTimeout(() => {
+            const currentRating = ratings[ratingsIndex];
+            ratingsCard.innerHTML = `
+                <img src="${currentRating.logo}" alt="Rating" class="w-10 h-10 object-contain" />
+                <div class="text-lg font-bold text-gray-800">${currentRating.text}</div>
+            `;
+            ratingsCard.style.opacity = 1;
+            ratingsIndex = (ratingsIndex + 1) % ratings.length;
+        }, 420);
+    }
+    updateRatings();
+    setInterval(updateRatings, 3500); // Increased interval
+
+    // --- Workshops Card Interaction ---
+    document.querySelectorAll('.workshop-card').forEach(card => {
+        card.addEventListener('mousedown', () => card.classList.add('active'));
+        card.addEventListener('mouseup', () => setTimeout(() => card.classList.remove('active'), 170));
+        card.addEventListener('mouseleave', () => card.classList.remove('active'));
+        card.addEventListener('click', () => {
+             // In a real environment, you'd open the link. Using console.log for safety.
+            console.log("Navigating to:", card.getAttribute('data-link')); 
+            // window.open(card.getAttribute('data-link'), "_blank");
+        });
+    });
+
+    // --- Success Stories Carousel (Programmatic Scroll) ---
+    const track = document.getElementById('carousel-track');
+    const prevBtn = document.querySelector('.carousel-btn.prev');
+    const nextBtn = document.querySelector('.carousel-btn.next');
+    
+    if (track && prevBtn && nextBtn) {
+        const cardWidth = 208; // 192px width + 16px gap (w-48, gap-4)
+        const scrollAmount = cardWidth; // Scroll one card at a time
+
+        prevBtn.onclick = function() {
+            track.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
+        };
+        nextBtn.onclick = function() {
+            track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+        };
+        
+        // Make the track horizontally scrollable via mouse/touch drag for better UX
+        let isDragging = false;
+        let startX;
+        let scrollLeft;
+
+        track.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startX = e.pageX - track.offsetLeft;
+            scrollLeft = track.scrollLeft;
+            track.classList.add('cursor-grabbing');
+        });
+        track.addEventListener('mouseleave', () => {
+            isDragging = false;
+            track.classList.remove('cursor-grabbing');
+        });
+        track.addEventListener('mouseup', () => {
+            isDragging = false;
+            track.classList.remove('cursor-grabbing');
+        });
+        track.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            e.preventDefault();
+            const x = e.pageX - track.offsetLeft;
+            const walk = (x - startX) * 1.5; // Scroll speed multiplier
+            track.scrollLeft = scrollLeft - walk;
+        });
+    }
+
+    // --- Community Tabs ---
+    const tabs = document.querySelectorAll('.comm-tab');
+    const gallery = document.getElementById('community-gallery');
+    tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            // Update active state
+            tabs.forEach(t => {
+                t.classList.remove('bg-gs-blue', 'text-white', 'border-transparent');
+                t.classList.add('bg-white', 'border-gs-blue', 'text-gs-blue');
+            });
+            this.classList.remove('bg-white', 'border-gs-blue', 'text-gs-blue');
+            this.classList.add('bg-gs-blue', 'text-white', 'border-transparent');
+
+            // Update gallery content
+            const selectedTab = this.getAttribute('data-tab');
+            const images = tabImages[selectedTab] || [];
+            
+            gallery.innerHTML = images.map(x => `
+                <div class="comm-item bg-gs-dark-blue rounded-xl shadow-lg w-full sm:w-60 overflow-hidden transition-all duration-300 transform hover:scale-[1.03] animate-fade-in">
+                    <img src="${x.src}" class="w-full h-32 object-cover"/>
+                    <div class="text-white p-4 font-medium text-lg">${x.desc}</div>
+                </div>
+            `).join('');
+        });
+    });
+
+    // --- Newsletter Submission (Dummy) ---
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+        newsletterForm.onsubmit = function(e){
+            e.preventDefault(); 
+            // Replacing alert() with a console log and visual feedback
+            const emailInput = e.target.querySelector('input[type="email"]');
+            if(emailInput.value) {
+                alert("Subscription successful! Check the console for data.");
+                console.log(`Subscribed with email: ${emailInput.value}`);
+                emailInput.value = ''; // Clear input
+            }
+        };
+    }
+});
+</script>
+
+</body>
+</html>
