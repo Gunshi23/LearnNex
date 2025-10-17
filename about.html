@@ -24,8 +24,8 @@
             color: var(--light-text);
         }
         .cta-button {
-            background-color: var(--primary-blue); /* Used to be primary-green */
-            color: white; /* Changed text color to white for contrast on blue */
+            background-color: var(--primary-blue);
+            color: white;
             transition: all 0.2s;
         }
         .cta-button:hover {
@@ -41,32 +41,30 @@
         .text-primary-blue {
             color: var(--primary-blue);
         }
+        /* Custom class for using the dark-bg as text color (as requested "black") */
+        .text-dark-bg {
+            color: var(--dark-bg);
+        }
     </style>
 </head>
 <body class="antialiased">
 
-    <!-- Navbar Placeholder -->
-    <nav class="bg-white shadow-sm dark-section py-4 px-6 md:px-12 text-sm font-medium flex justify-between items-center">
+    <!-- Navbar Placeholder - REMOVED dark-section, added shadow-md, text set to dark-bg -->
+    <nav class="bg-white shadow-md py-4 px-6 md:px-12 text-sm font-medium flex justify-between items-center z-10 sticky top-0">
         <div class="flex items-center space-x-8">
             <div class="flex items-center space-x-2">
-                <!-- Logo/Name -->
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-white">
+                <!-- Logo/Name - Changed color to text-dark-bg -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="text-dark-bg">
                     <path d="M12 0L24 12L12 24L0 12L12 0Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                     <path d="M12 4L19 11L12 18L5 11L12 4Z" fill="currentColor" opacity="0.8"/>
                 </svg>
-                <span class="text-xl font-extrabold text-white">Learnnex</span>
+                <span class="text-xl font-extrabold text-dark-bg">Learnnex</span>
             </div>
-            <!-- Main Nav Links (Simplified) -->
-            <a href="#" class="text-gray-300 hover:text-white hidden lg:block">Learn</a>
-            <a href="#" class="text-gray-300 hover:text-white hidden lg:block">Upskill Your Team</a>
-            <!-- Updated border color -->
-            <a href="#" class="text-white hidden lg:block border-b-2 border-primary-blue">About</a>
+            <!-- Main Nav Links - Adjusted text color to dark gray/dark-bg -->
+            <a href="upskill.html" class="text-gray-700 hover:text-dark-bg hidden lg:block transition duration-200">Upskill Your Team</a>
+            <a href="about.html" class="text-dark-bg hidden lg:block border-b-2 border-primary-blue">About</a>
         </div>
-        <div class="space-x-4 flex items-center">
-            <button class="px-3 py-1.5 border border-white rounded-md text-white text-xs font-semibold hover:bg-white hover:text-dark-bg transition">Login</button>
-            <!-- Updated button class to cta-button, removed specific border class -->
-            <button class="px-3 py-1.5 cta-button text-xs font-semibold hover:border-transparent rounded-md border border-primary-blue">Apply as Mentor</button>
-        </div>
+       
     </nav>
 
     <!-- 1. Hero Section: Unleashing Potential -->
@@ -78,7 +76,6 @@
             <p class="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
                 At **Learnnex**, we partner with the top $1\%$ of instructors to create high-impact cohort-based courses on personal and professional growth for learners all over the world.
             </p>
-            <!-- Updated button text color to white -->
             <a href="job.html" class="inline-flex items-center cta-button text-white font-bold py-3 px-8 rounded-lg shadow-xl text-lg group">
                 See Job Openings
                 <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -86,51 +83,62 @@
         </div>
     </header>
 
-    <!-- 2. Mission Section: Skills, Community, Mentorship -->
+    <!-- 2. Mission Section: Skills, Community, Mentorship (Aesthetic Component Added: Icons) -->
     <section class="py-16 md:py-24 bg-white">
         <div class="max-w-6xl mx-auto px-6">
-            <!-- Updated text color class -->
             <p class="text-sm font-semibold text-primary-blue mb-2 tracking-widest">FUELING YOUR AMBITION</p>
             <h2 class="text-3xl sm:text-4xl font-bold text-dark-bg mb-12">
                 Empowering Careers with Skills, Community, and Mentorship
             </h2>
 
             <div class="grid lg:grid-cols-2 gap-8 mb-16">
-                <!-- What Drives Us -->
-                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 h-full">
-                    <h3 class="text-xl font-bold text-dark-bg mb-3">What Drives Us</h3>
+                <!-- What Drives Us (Skills) -->
+                <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 h-full transform transition hover:shadow-2xl">
+                    <div class="flex items-start mb-4">
+                        <!-- ICON: Skills/Aperture -->
+                        <svg class="w-10 h-10 text-primary-blue mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6l3 12h12l3-12H3zm12 0L9 18M9 6h6"/></svg>
+                        <h3 class="text-xl font-bold text-dark-bg mt-1">What Drives Us: Career-Focused Skills</h3>
+                    </div>
                     <p class="text-gray-600 mb-6">
-                        While college was an enjoyable experience for many, it didn't equip us with the necessary skills to thrive in today's online landscape. We aim to change that by collaborating with top industry leaders to create career-focused programs that can help you start a new career or enhance your existing skills.
+                        While college was an enjoyable experience for many, it didn't equip us with the necessary skills to thrive in today's online landscape. We aim to change that by collaborating with top industry leaders to create career-focused programs that can help you **start a new career** or **enhance your existing skills**.
                     </p>
                     <div class="h-48 rounded-lg bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 font-medium text-sm">
                         <!-- Image Placeholder -->
-                        <span class="p-4 bg-gray-300/50 rounded-lg"> <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc1.png" alt="drive"></span>
+                        <span class="p-4 bg-gray-300/50 rounded-lg"> <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc1.png" alt="Learning and Upskilling drive"></span>
                     </div>
                 </div>
 
                 <!-- Power of Community & Great Mentors -->
                 <div class="grid gap-8">
                     <!-- The Power of Community -->
-                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100">
-                        <h3 class="text-xl font-bold text-dark-bg mb-3">The Power of Community</h3>
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 transform transition hover:shadow-2xl">
+                        <div class="flex items-start mb-4">
+                            <!-- ICON: Community/Group -->
+                            <svg class="w-10 h-10 text-primary-blue mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h-10a4 4 0 01-4-4v-1a4 4 0 014-4h10a4 4 0 014 4v1a4 4 0 01-4 4zm-2-12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <h3 class="text-xl font-bold text-dark-bg mt-1">The Power of Community</h3>
+                        </div>
                         <p class="text-gray-600 mb-4">
                             You learn more from your peers than your mentors or teachers in the real world. You can have better ideas and have better professional outcomes when like-minded people surround you. Our programs are focused on **community learning & engagement**.
                         </p>
                         <div class="h-32 rounded-lg bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 font-medium text-sm">
                             <!-- Image Placeholder -->
-                            <span class="p-4 bg-gray-300/50 rounded-lg"> <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc2.webp" alt="c"></span>
+                            <span class="p-4 bg-gray-300/50 rounded-lg"> <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc2.webp" alt="Community focus"></span>
                         </div>
                     </div>
 
                     <!-- Support from Great Mentors -->
-                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100">
-                        <h3 class="text-xl font-bold text-dark-bg mb-3">Support from Great Mentors</h3>
+                    <div class="bg-white p-6 md:p-8 rounded-xl shadow-lg border border-gray-100 transform transition hover:shadow-2xl">
+                        <div class="flex items-start mb-4">
+                            <!-- ICON: Mentorship/Lightbulb -->
+                            <svg class="w-10 h-10 text-primary-blue mr-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13l4 4L22 6M3 3v2a4 4 0 004 4h4m1-4l3 3m1 1l3 3m-4-10a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                            <h3 class="text-xl font-bold text-dark-bg mt-1">Support from Great Mentors</h3>
+                        </div>
                         <p class="text-gray-600 mb-4">
                             Having a supportive set of background mentors can greatly enhance your career journey. They can help you avoid pitfalls and progress from anomaly. We strictly collaborate with the best of the best - the **top 1% of professionals** in their field.
                         </p>
                         <div class="h-32 rounded-lg bg-gray-200 overflow-hidden flex items-center justify-center text-gray-500 font-medium text-sm">
                             <!-- Image Placeholder -->
-                            <span class="p-4 bg-gray-300/50 rounded-lg"><img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc3.png" alt=""></span>
+                            <span class="p-4 bg-gray-300/50 rounded-lg"><img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/abc3.png" alt="Mentor support"></span>
                         </div>
                     </div>
                 </div>
@@ -138,17 +146,16 @@
         </div>
     </section>
 
-    <!-- 3. Team/Culture Section -->
+    <!-- 3. Team/Culture Section (Aesthetic Component Added: Shadow to image) -->
     <section class="py-16 md:py-24 dark-section">
         <div class="max-w-6xl mx-auto px-6 text-center">
-            <!-- Updated text color class -->
             <p class="text-sm font-semibold text-primary-blue mb-2 tracking-widest">WHERE PASSION, INNOVATION AND FUN COLLIDE</p>
             <h2 class="text-4xl sm:text-5xl font-extrabold mb-12">The Learnnex Way</h2>
 
-            <div class="rounded-xl shadow-2xl overflow-hidden">
-                 <div class="w-full h-96 bg-gray-700 flex items-center justify-center text-xl font-bold text-white/80 p-8">
-                    Learnnex Team Photo Placeholder - This represents our diverse and growing family.
-                 </div>
+            <div class="rounded-xl shadow-2xl overflow-hidden transform transition duration-500 hover:scale-[1.01] bg-gray-700">
+                   <div class="w-full h-96 flex items-center justify-center text-xl font-bold text-white/80 p-8 border-4 border-primary-blue/30">
+                       <img src="https://d31bwppm8yl9g2.cloudfront.net/learner/website/imgpeop.png" alt="The Learnnex Team" class="w-full h-full object-cover">
+                   </div>
             </div>
         </div>
     </section>
@@ -163,7 +170,6 @@
                     <h3 class="text-3xl font-bold text-white mb-2">Interested in Joining Learnnex?</h3>
                     <p class="text-gray-300">Be part of a thriving community of professionals and discover your next career move with us.</p>
                 </div>
-                <!-- Updated button text color to white -->
                 <a href="#" class="inline-flex items-center cta-button text-white font-bold py-3 px-8 rounded-lg shadow-xl text-lg group flex-shrink-0">
                     See Job Openings
                     <svg class="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
@@ -173,42 +179,40 @@
             <!-- Recommended by Influencers -->
             <div class="grid lg:grid-cols-2 gap-12 mb-16 items-center">
                 <div>
-                    <!-- Updated text color class -->
                     <p class="text-sm font-semibold text-primary-blue mb-2 tracking-widest">GLOBALLY RECOGNIZED</p>
                     <h3 class="text-3xl font-bold text-dark-bg">Recommended by your Favourite Influencers and Creators</h3>
                 </div>
                 <!-- Testimonial Card Placeholder -->
-                <div class="bg-dark-bg text-white p-6 rounded-xl shadow-lg relative">
+                <div class="bg-dark-bg text-white p-6 rounded-xl shadow-lg relative border border-primary-blue/50">
                     <p class="italic mb-4 text-gray-200">
                         "I know Vabbhar as the guy who is killing it on LinkedIn, because of everything he is doing and he understands the platform so well."
                     </p>
-                    <!-- Updated text color class -->
                     <p class="font-semibold text-lg text-primary-blue">Ankur Warikoo</p>
                     <p class="text-sm text-gray-400">Ex-CEO, Mentor, Creator & Author</p>
                 </div>
             </div>
 
-            <!-- Backed by the Best -->
+            <!-- Backed by the Best (Aesthetic Component Added: Better visual style and grid) -->
             <div>
-                <!-- Updated text color class -->
                 <p class="text-sm font-semibold text-primary-blue mb-2 tracking-widest">BEHIND OUR MISSION</p>
                 <h3 class="text-3xl font-bold text-dark-bg mb-3">Backed by the best</h3>
                 <p class="text-gray-600 mb-10">With the trust of $10+$ thought leaders, we’re tackling futures together.</p>
 
-                <div class="flex flex-wrap justify-center lg:justify-between gap-6">
-                    <!-- Backer/Investor Icons Placeholder (12 total used for layout) -->
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B1</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B2</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B3</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B4</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B5</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B6</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B7</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B8</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B9</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B10</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B11</div>
-                    <div class="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center text-xs text-dark-bg font-semibold shadow-md">B12</div>
+                <!-- Responsive Grid for Backer Icons -->
+                <div class="grid grid-cols-4 sm:grid-cols-6 lg:grid-cols-12 gap-6 place-items-center">
+                    <!-- Backer/Investor Icons Placeholder (12 total used for layout) - Enhanced Style -->
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B1</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B2</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B3</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B4</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B5</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B6</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B7</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B8</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B9</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B10</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B11</div>
+                    <div class="w-16 h-16 rounded-full bg-white ring-2 ring-primary-blue/50 flex items-center justify-center text-xs text-dark-bg font-bold shadow-lg transition hover:bg-primary-blue/10">B12</div>
                 </div>
             </div>
 
@@ -229,9 +233,9 @@
                         <span class="text-xl font-extrabold text-white">Learnnex</span>
                     </div>
                     <div class="flex space-x-3 text-gray-400">
-                        <a href="#" class="hover:text-white transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4.01c-.77.34-1.6.56-2.47.65.89-.53 1.57-1.37 1.89-2.37-.83.49-1.75.84-2.73 1.04-.79-.84-1.92-1.37-3.17-1.37-2.39 0-4.34 1.95-4.34 4.34 0 .34.04.67.11.99-3.61-.18-6.8-1.91-8.94-4.54-.37.64-.58 1.39-.58 2.19 0 1.5.76 2.82 1.92 3.59-.7-.02-1.35-.21-1.92-.53v.05c0 2.11 1.5 3.88 3.49 4.29-.37.1-.76.15-1.16.15-.29 0-.58-.03-.86-.08.55 1.73 2.15 2.99 4.05 3.03-1.49 1.17-3.37 1.87-5.41 1.87-.35 0-.7-.02-1.04-.06 1.93 1.24 4.22 1.96 6.69 1.96 8.03 0 12.42-6.66 12.42-12.42v-.59c.85-.61 1.59-1.36 2.18-2.18z"/></svg></a>
-                        <a href="#" class="hover:text-white transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3-11.5c.34-.14.73-.24 1.14-.24 3.07 0 5.86 1.52 7.57 4.02-1.85 2.51-4.7 4.05-7.85 4.05-3.15 0-6-.62-7.86-1.87v-3.8c0-3.35 2.53-6.14 5.82-6.28z"/></svg></a>
-                        <a href="#" class="hover:text-white transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8H8v8h8V8zm-2 2v4h-4v-4h4zM4 0h16c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H4c-2.21 0-4-1.79-4-4V4c0-2.21 1.79-4 4-4zm16 18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16z"/></svg></a>
+                        <a href="#" class="hover:text-white transition" aria-label="Twitter"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M22 4.01c-.77.34-1.6.56-2.47.65.89-.53 1.57-1.37 1.89-2.37-.83.49-1.75.84-2.73 1.04-.79-.84-1.92-1.37-3.17-1.37-2.39 0-4.34 1.95-4.34 4.34 0 .34.04.67.11.99-3.61-.18-6.8-1.91-8.94-4.54-.37.64-.58 1.39-.58 2.19 0 1.5.76 2.82 1.92 3.59-.7-.02-1.35-.21-1.92-.53v.05c0 2.11 1.5 3.88 3.49 4.29-.37.1-.76.15-1.16.15-.29 0-.58-.03-.86-.08.55 1.73 2.15 2.99 4.05 3.03-1.49 1.17-3.37 1.87-5.41 1.87-.35 0-.7-.02-1.04-.06 1.93 1.24 4.22 1.96 6.69 1.96 8.03 0 12.42-6.66 12.42-12.42v-.59c.85-.61 1.59-1.36 2.18-2.18z"/></svg></a>
+                        <a href="#" class="hover:text-white transition" aria-label="LinkedIn"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.76 0-5 2.24-5 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5v-14c0-2.76-2.24-5-5-5zm-11 19c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3-11.5c.34-.14.73-.24 1.14-.24 3.07 0 5.86 1.52 7.57 4.02-1.85 2.51-4.7 4.05-7.85 4.05-3.15 0-6-.62-7.86-1.87v-3.8c0-3.35 2.53-6.14 5.82-6.28z"/></svg></a>
+                        <a href="#" class="hover:text-white transition" aria-label="Instagram"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M16 8H8v8h8V8zm-2 2v4h-4v-4h4zM4 0h16c2.21 0 4 1.79 4 4v16c0 2.21-1.79 4-4 4H4c-2.21 0-4-1.79-4-4V4c0-2.21 1.79-4 4-4zm16 18c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2H4c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h16z"/></svg></a>
                     </div>
                 </div>
 
@@ -280,7 +284,6 @@
 
                     <h4 class="font-bold text-white mb-3 flex items-center">
                         Best Kept Secrets
-                        <!-- Updated text color class -->
                         <span class="ml-1 text-primary-blue">
                             <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm0-4h-2V7h2v8z"/></svg>
                         </span>
@@ -290,7 +293,6 @@
                     </p>
                     <div class="flex">
                         <input type="email" placeholder="Enter your email" class="px-4 py-2 w-full text-dark-bg rounded-l-md focus:outline-none text-sm" />
-                        <!-- Updated button text color to white -->
                         <button class="cta-button font-semibold px-4 py-2 rounded-r-md text-white text-sm hover:brightness-110">Subscribe</button>
                     </div>
                 </div>
