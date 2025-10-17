@@ -62,7 +62,7 @@
         
         /* Enhanced Input Focus Effect (using custom CSS variable for a deeper ring look) */
         .input-field:focus {
-            box-shadow: 0 0 0 4px var(--accent-color-rgb, rgba(165, 180, 252, 0.5)); 
+            box-shadow: 0 0 0 4px rgba(var(--accent-color-rgb), 0.5); 
         }
     </style>
 </head>
@@ -233,8 +233,10 @@
                 colorClass = 'text-blue-500';
             }
             
-            displayElement.innerHTML = text;
+            // Remove old classes and add new ones
+            displayElement.className = 'mt-6 text-center text-sm font-medium';
             displayElement.classList.add(colorClass);
+            displayElement.innerHTML = text;
         };
         
         const setFormState = (formType, isLoading) => {
@@ -246,55 +248,88 @@
                 : (formType === 'login' ? 'Log in' : 'Sign Up');
         };
 
+        const updateLinkListeners = () => {
+             // Ensure listeners are always attached to the current elements
+            const showSignup = document.getElementById('showSignupLink');
+            const showLogin = document.getElementById('showLoginLink');
+
+            if (showSignup) {
+                showSignup.onclick = (e) => { e.preventDefault(); showView('signup'); };
+            }
+            if (showLogin) {
+                showLogin.onclick = (e) => { e.preventDefault(); showView('login'); };
+            }
+        };
+
         const resetLoginMessage = () => {
+            loginMessageDisplay.className = 'mt-6 text-center text-sm font-medium text-gray-600';
             loginMessageDisplay.innerHTML = `Don't have an account? <a href="#" id="showSignupLink" class="text-primary hover:text-secondary font-semibold transition-colors">Sign up here</a>`;
-            loginMessageDisplay.classList.remove('text-red-500', 'text-green-600', 'text-blue-500', 'font-bold');
-            // Re-attach event listener
-            document.getElementById('showSignupLink').addEventListener('click', (e) => { e.preventDefault(); showView('signup'); });
+            updateLinkListeners();
         };
 
         const resetSignupMessage = () => {
+            signupMessageDisplay.className = 'mt-6 text-center text-sm font-medium text-gray-600';
             signupMessageDisplay.innerHTML = `Already have an account? <a href="#" id="showLoginLink" class="text-primary hover:text-secondary font-semibold transition-colors">Log in here</a>`;
-            signupMessageDisplay.classList.remove('text-red-500', 'text-green-600', 'text-blue-500', 'font-bold');
-            // Re-attach event listener
-            document.getElementById('showLoginLink').addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
+            updateLinkListeners();
         };
 
         // --- View Switching Logic ---
         const showView = (view) => {
+            // Remove animations before changing visibility
             loginCard.classList.remove('animated-card');
             signupCard.classList.remove('animated-card');
             
-            loginCard.classList.add('transition', 'duration-300');
-            signupCard.classList.add('transition', 'duration-300');
+            // Apply a simple transition for smoother switch
+            loginCard.classList.add('transition', 'duration-300', 'ease-in-out');
+            signupCard.classList.add('transition', 'duration-300', 'ease-in-out');
 
             if (view === 'signup') {
                 loginCard.classList.add('opacity-0', 'hidden');
-                signupCard.classList.remove('opacity-0', 'hidden');
-                void signupCard.offsetWidth;
-                signupCard.classList.add('animated-card');
-
-                authSubtitle.textContent = 'Register your student account';
-                resetSignupMessage();
+                signupCard.classList.remove('hidden');
+                setTimeout(() => {
+                    // Trigger the fade-in animation on the newly shown card
+                    signupCard.classList.remove('opacity-0');
+                    authSubtitle.textContent = 'Register your student account';
+                    resetSignupMessage();
+                }, 10); // Small delay to allow 'hidden' class to register
             } else { // 'login'
                 signupCard.classList.add('opacity-0', 'hidden');
-                loginCard.classList.remove('opacity-0', 'hidden');
-                
-                void loginCard.offsetWidth;
-                loginCard.classList.add('animated-card');
-
-                authSubtitle.textContent = 'Sign in to start learning';
-                resetLoginMessage();
+                loginCard.classList.remove('hidden');
+                setTimeout(() => {
+                    // Trigger the fade-in animation on the newly shown card
+                    loginCard.classList.remove('opacity-0');
+                    authSubtitle.textContent = 'Sign in to start learning';
+                    resetLoginMessage();
+                }, 10);
             }
+            updateLinkListeners();
         };
 
         // --- Firebase Initialization ---
         const initFirebase = async () => {
             try {
-                const firebaseConfig = JSON.parse(typeof __firebase_config !== 'undefined' ? __firebase_config : '{}');
+                // --- MANUAL FIREBASE CONFIGURATION (For local testing) ---
+                // If running locally (outside Canvas), replace these placeholder values 
+                // with your actual Firebase configuration object from the Firebase Console.
+                const manualConfig = {
+                    apiKey: "YOUR_API_KEY_GOES_HERE",       
+                    authDomain: "your-project-id.firebaseapp.com",
+                    projectId: "your-project-id",
+                    storageBucket: "your-project-id.appspot.com",
+                    messagingSenderId: "1234567890",
+                    appId: "1:1234567890:web:abcdef1234567890"
+                };
+                // -----------------------------------------------------------
 
-                if (Object.keys(firebaseConfig).length === 0) {
-                    console.warn("Firebase config is missing. Authentication functionality will be limited.");
+                // The environment provides __firebase_config. We use manualConfig as a fallback.
+                const firebaseConfig = typeof __firebase_config !== 'undefined' ? 
+                                       JSON.parse(__firebase_config) : 
+                                       manualConfig;
+
+                // Check for placeholder key or missing config
+                if (!firebaseConfig.apiKey || firebaseConfig.apiKey === "YOUR_API_KEY_GOES_HERE") {
+                    console.error("Firebase config is missing or using placeholder values. Auth will not work.");
+                    showMessage(loginMessageDisplay, "Authentication service is unavailable. Please replace 'YOUR_API_KEY_GOES_HERE' with your key in the script.", "error");
                     return;
                 }
 
@@ -307,27 +342,28 @@
                 onAuthStateChanged(auth, (user) => {
                     if (user) {
                         userId = user.uid;
-                        console.log("User signed in with UID:", userId);
-                        // In a production app, this is where you'd redirect
+                        console.log("User signed in with UID:", userId, user.email || '(anonymous)');
+                        // Note: In a real app, authenticated users would be redirected away from this page.
                     } else {
                         userId = null;
                         console.log("User signed out.");
                     }
                 });
 
-                // Initial sign-in (using custom token or anonymously)
+                // MANDATORY: Initial sign-in (using custom token or anonymously)
                 const token = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
                 
                 if (token) {
                     await signInWithCustomToken(auth, token);
-                    console.log("Signed in with custom token.");
+                    console.log("Successfully signed in with custom token (Canvas environment).");
                 } else {
                     await signInAnonymously(auth);
-                    console.log("Signed in anonymously.");
+                    console.log("Successfully signed in anonymously (No custom token provided).");
                 }
 
             } catch (error) {
                 console.error("Firebase initialization or initial sign-in failed:", error);
+                showMessage(loginMessageDisplay, `Fatal Error: Could not initialize Firebase. ${error.message}`, "error");
             }
         };
 
@@ -342,7 +378,7 @@
             const password = loginPasswordInput.value.trim();
 
             if (!auth) {
-                showMessage(loginMessageDisplay, 'Firebase not initialized. Cannot log in.', 'error');
+                showMessage(loginMessageDisplay, 'Authentication service is not ready.', 'error');
                 return;
             }
 
@@ -357,11 +393,11 @@
             try {
                 const userCredential = await signInWithEmailAndPassword(auth, email, password);
                 console.log("Login Successful:", userCredential.user);
-                // The onAuthStateChanged listener will handle setting the userId
+                
                 showMessage(loginMessageDisplay, `Welcome back! Login successful.`, 'success');
 
                 // Simulate redirect after a short delay
-                setTimeout(() => { /* window.location.href = "/dashboard"; */ console.log("Redirecting..."); }, 1500);
+                setTimeout(() => { /* window.location.href = "/dashboard"; */ console.log("Redirecting to dashboard..."); }, 1500);
 
             } catch (error) {
                 console.error("Login Failed:", error.code, error.message);
@@ -369,7 +405,7 @@
                 if (error.code === 'auth/invalid-email' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
                     errorMessage = 'Invalid email or password.';
                 } else if (error.code === 'auth/too-many-requests') {
-                    errorMessage = 'Too many login attempts. Try again later.';
+                    errorMessage = 'Too many failed login attempts. Try again later.';
                 }
                 showMessage(loginMessageDisplay, errorMessage, 'error');
             } finally {
@@ -388,7 +424,7 @@
             const password = document.getElementById('signupPassword').value.trim();
 
             if (!auth) {
-                showMessage(signupMessageDisplay, 'Firebase not initialized. Cannot sign up.', 'error');
+                showMessage(signupMessageDisplay, 'Authentication service is not ready.', 'error');
                 return;
             }
 
@@ -404,30 +440,32 @@
                 const userCredential = await createUserWithEmailAndPassword(auth, email, password);
                 console.log("Signup Successful:", userCredential.user);
                 
-                // NOTE: In a real app, you would use db.collection('students').doc(userCredential.user.uid).set({...}) here
+                // IMPORTANT: In a production app, you would use Firestore (db) here 
+                // to save the extra student details (fullName, studentId, gradeCourse).
+                // Example of what would be saved:
                 const studentData = { 
                     fullName, 
                     studentId, 
                     gradeCourse, 
-                    email, 
+                    email: userCredential.user.email, 
                     registeredAt: new Date().toISOString() 
                 };
                 console.log("Student Metadata (would be saved to Firestore):", studentData);
 
-                showMessage(signupMessageDisplay, `Account created for ${fullName}! You can now log in.`, 'success');
+                showMessage(signupMessageDisplay, `Success! Account created for ${fullName}. Now log in.`, 'success');
                 
                 // Switch back to login after a short success message
                 setTimeout(() => showView('login'), 2500);
 
             } catch (error) {
                 console.error("Signup Failed:", error.code, error.message);
-                let errorMessage = 'Registration failed.';
+                let errorMessage = 'Registration failed. Please try again.';
                 if (error.code === 'auth/email-already-in-use') {
                     errorMessage = 'This email address is already registered.';
                 } else if (error.code === 'auth/weak-password') {
-                    errorMessage = 'Password should be at least 6 characters.';
+                    errorMessage = 'Password must be at least 6 characters.';
                 } else if (error.code === 'auth/invalid-email') {
-                     errorMessage = 'The email address is not valid.';
+                    errorMessage = 'The email address is not valid.';
                 }
                 showMessage(signupMessageDisplay, errorMessage, 'error');
             } finally {
@@ -444,12 +482,13 @@
             signupForm.addEventListener('submit', handleSignup);
             
             // Attach view switch handlers
-            // Need to wait until the document is loaded to ensure these elements exist
-            document.getElementById('showSignupLink').addEventListener('click', (e) => { e.preventDefault(); showView('signup'); });
-            document.getElementById('showLoginLink').addEventListener('click', (e) => { e.preventDefault(); showView('login'); });
+            updateLinkListeners();
         };
         
         window.onload = async () => {
+            // Ensure initial card is visible for animation
+            loginCard.classList.remove('hidden'); 
+            
             await initFirebase();
             setupEventListeners();
         };

@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learnnex Dashboard</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Configure Tailwind for custom colors and font -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'learnnex-blue': '#2563eb', // Equivalent to blue-600
+                        'learnnex-dark': '#1e1b4b', // Deep Indigo/Purple for dark cards
+                        'learnnex-light-dark': '#3730a3', // Slightly lighter dark for headers/accents
+                        'card-bg-light': '#ffffff',
+                        'card-bg-dark': '#312e81',
+                        'text-primary-light': '#e0e7ff',
+                        'placement-tag': '#f3f4f6', // light gray for job tags
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* Light off-white background */
+        }
+        /* Custom scrollbar for placement list */
+        .placement-list-container {
+            /* Max height and overflow moved to the element's class attributes for better responsiveness */
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #94a3b8 transparent; /* Firefox */
+        }
+        .placement-list-container::-webkit-scrollbar {
+            width: 6px;
+        }
+        .placement-list-container::-webkit-scrollbar-thumb {
+            background-color: #94a3b8;
+            border-radius: 3px;
+            border: 1px solid #f8fafc;
+        }
+
+        /* Card Hover Animation */
+        .animated-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .animated-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        /* Program Card Hover Animation - Using shadow from the dark theme */
+        .program-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .program-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 25px -5px rgba(30, 27, 75, 0.5); /* Deeper shadow on hover */
+        }
+        
+        /* Community Image Card */
+        .community-card {
+            aspect-ratio: 16 / 9;
+            overflow: hidden;
+            position: relative;
+        }
+        .community-card img {
+            transition: transform 0.5s ease;
+        }
+        .community-card:hover img {
+            transform: scale(1.05);
+        }
+        .community-card-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0));
+            padding: 1rem;
+        }
+
+        /* Success Story Card Animation */
+        .success-story-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .success-story-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 10px -3px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen">
+
+    <!-- Header / Navbar -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-8">
+                <a href="#" class="text-3xl font-extrabold text-learnnex-blue">Learnnex</a>
+                <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
+                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Programs</a>
+                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Success Stories</a>
+                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Community</a>
+                </nav>
+            </div>
+            <button id="logoutBtn" class="flex items-center px-4 py-2 border border-learnnex-blue text-learnnex-blue font-semibold rounded-full hover:bg-learnnex-blue hover:text-white transition duration-200 shadow-md">
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"></path></svg>
+                Logout
+            </button>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-8 pb-12">
+        <div class="lg:grid lg:grid-cols-12 lg:gap-8">
+
+            <!-- Left/Center Content (Col 1-9) -->
+            <div class="lg:col-span-9 space-y-10">
+                
+                <!-- ROW 1: Welcome Banner (Spans Full Width of 9 columns) -->
+                <div class="grid grid-cols-1">
+                    
+                    <!-- Hello Card (Now spans full width) -->
+                    <div class="col-span-1 bg-white p-6 rounded-2xl shadow-xl border border-gray-100 flex items-center animated-card min-h-[160px]">
+                        <p class="text-5xl mr-4">👋</p>
+                        <div class="flex flex-col justify-center">
+                            <!-- User name will be dynamically inserted here -->
+                            <h2 id="welcomeMessage" class="text-3xl font-bold text-learnnex-blue truncate">Welcome Back, Student!</h2>
+                            <p class="text-lg text-gray-600 mt-1 truncate">Ready to dive into a new skill today?</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ROW 2: Top Program Cards (3 Cards in a Row) -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Card 1: Product Manager @ Google -->
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
+                                <img src="https://placehold.co/150x80/22c55e/ffffff?text=PM" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/22c55e/ffffff?text=PM';">
+                            </div>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-yellow-400 text-learnnex-dark">20 WEEKS</span>
+                            <p class="text-lg text-text-primary-light font-semibold mt-1">Product Manager @ Google</p>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Mentored by industry experts.</p>
+                    </div>
+
+                    <!-- Card 2: Digital Marketing Mentorship -->
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
+                                <img src="https://placehold.co/150x80/ec4899/ffffff?text=DM" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/ec4899/ffffff?text=DM';">
+                            </div>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-pink-400 text-learnnex-dark">8 MONTHS</span>
+                            <p class="text-lg text-text-primary-light font-semibold mt-1">Digital Marketing Mastery</p>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Work with brands like Sundu Labs.</p>
+                    </div>
+
+                    <!-- Card 3: SEO Mentorship Program - Elite -->
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                        <div>
+                            <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
+                                <img src="https://placehold.co/150x80/22d3ee/ffffff?text=SEO" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/22d3ee/ffffff?text=SEO';">
+                            </div>
+                            <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-400 text-learnnex-dark">12 WEEKS</span>
+                            <p class="text-lg text-text-primary-light font-semibold mt-1">SEO Mentorship - Elite</p>
+                        </div>
+                        <p class="text-xs text-gray-400 mt-2">Founder & MD @ Intelligr.</p>
+                    </div>
+                </div>
+
+                <!-- Recommended Programs Section -->
+                <div class="pt-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Recommended Programs</h2>
+                        <button class="flex items-center text-learnnex-blue font-semibold hover:text-learnnex-light-dark transition duration-150">
+                            See All
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Large Recommended Card and Success Stories Container -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        
+                        <!-- Large Recommended Card: Product Management - Elite (Left Half) -->
+                        <div class="bg-learnnex-dark p-6 rounded-2xl shadow-2xl program-card flex flex-col">
+                            <div class="w-full h-48 mb-4 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
+                                <img src="https://placehold.co/400x200/5046e7/ffffff?text=Mentor+Mohammad" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/400x200/5046e7/ffffff?text=Mentor+Mohammad';">
+                            </div>
+                            <span class="text-sm font-semibold px-3 py-1 rounded-full bg-yellow-400 text-learnnex-dark w-fit">20 WEEKS</span>
+                            <h3 class="text-3xl text-white font-bold mt-2">Product Management - Elite</h3>
+                            <p class="text-base text-gray-300 font-semibold mt-1">Mohammad Saroah</p>
+                            <p class="text-sm text-gray-400">Product Manager @ Google</p>
+                        </div>
+
+                        <!-- Success Stories (Right Half) -->
+                        <div class="space-y-6">
+                            <div class="flex justify-between items-center">
+                                <h2 class="text-2xl font-bold text-gray-800">Student Success</h2>
+                                <div class="flex space-x-2">
+                                    <button class="p-2 border border-gray-300 rounded-full text-gray-500 hover:text-learnnex-blue hover:border-learnnex-blue transition duration-150">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+                                    </button>
+                                    <button class="p-2 border border-gray-300 rounded-full text-gray-500 hover:text-learnnex-blue hover:border-learnnex-blue transition duration-150">
+                                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Success Stories Cards (Vertical Stack) -->
+                            <div class="space-y-4">
+                                <!-- Story 1: Jay Mola -->
+                                <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=J" alt="Jay Mola" class="rounded-full">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Jay Mola</p>
+                                            <p class="text-xs text-gray-500">Atom Consistencry</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1 border-t pt-2">
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-sm text-gray-700 font-medium">Founder</p>
+                                            <p class="text-xs text-learnnex-blue font-semibold">Atom Foode</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Story 2: Shibya Arora -->
+                                <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=S" alt="Shibya Arora" class="rounded-full">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Shibya Arora</p>
+                                            <p class="text-xs text-gray-500">Lelena</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1 border-t pt-2">
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-sm text-gray-700 font-medium">Senior Brand Marketing</p>
+                                            <p class="text-xs text-learnnex-blue font-semibold">Colormum Cosmetics Pvt. Ltd.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- Story 3: Hevarth Belakuri -->
+                                <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
+                                    <div class="flex items-center mb-3">
+                                        <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=H" alt="Hevarth Belakuri" class="rounded-full">
+                                        </div>
+                                        <div>
+                                            <p class="font-semibold text-gray-800">Hevarth Belakuri</p>
+                                            <p class="text-xs text-gray-500">I-O</p>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-1 border-t pt-2">
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-sm text-gray-700 font-medium">Lead Analyst</p>
+                                            <p class="text-xs text-learnnex-blue font-semibold">Optimum Solutions Pvt</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> <!-- End Recommended Programs & Success Stories -->
+
+                <!-- Community Buzz Section -->
+                <div class="pt-4">
+                    <div class="flex justify-between items-center mb-6">
+                        <h2 class="text-2xl font-bold text-gray-800">Discover the Buzz: Inside Our Vibrant Community</h2>
+                        <button class="flex items-center text-learnnex-blue font-semibold hover:text-learnnex-light-dark transition duration-150">
+                            See All
+                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </button>
+                    </div>
+                    
+                    <!-- Community Images Grid (Improved responsiveness to 3 columns on sm screens) -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
+                        <!-- Image 1 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                            <img src="https://placehold.co/600x400/1e1b4b/e0e7ff?text=Product+Hackathon" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">Product Management Hackathon</p>
+                            </div>
+                        </div>
+                        <!-- Image 2 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                            <img src="https://placehold.co/600x400/3730a3/e0e7ff?text=Product+Meetup" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">Product Management Meetup</p>
+                            </div>
+                        </div>
+                        <!-- Image 3 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                            <img src="https://placehold.co/600x400/2563eb/e0e7ff?text=Generative+AI+Meetup" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">Generative AI Meetup</p>
+                            </div>
+                        </div>
+                        <!-- Image 4 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                            <img src="https://placehold.co/600x400/22c55e/ffffff?text=Product+Marketing+Booth" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">Product Marketing Booth</p>
+                            </div>
+                        </div>
+                        <!-- Image 5 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                            <img src="https://placehold.co/600x400/f59e0b/ffffff?text=GrowthSchool+Kolkata" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">GrowthSchool Kolkata Meetup</p>
+                            </div>
+                        </div>
+                        <!-- Image 6 -->
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                            <img src="https://placehold.co/600x400/ef4444/ffffff?text=Angel+Investor+Meetup" alt="Community Event" class="w-full h-full object-cover">
+                            <div class="community-card-overlay">
+                                <p class="text-xs text-white font-medium">Angel Investor Meetup</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <!-- Right Sidebar (Placements - Col 10-12) -->
+            <div class="lg:col-span-3 mt-8 lg:mt-0">
+                <div class="bg-white p-4 rounded-xl shadow-lg sticky top-20">
+                    <h3 class="text-xl font-bold text-gray-800 mb-4 border-b pb-2">Recent Placements</h3>
+                    <div class="placement-list-container space-y-3 max-h-[500px] overflow-y-auto">
+                        <!-- Placement Items -->
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Naweed</span> got a new job at Great Learning <span class="ml-1">🎉</span></p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Arvind</span> got a new job at Code Browi Labs</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Vikram</span> got a new job at TopperMent</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Lohith</span> got a new job at The Narayans Group <span class="ml-1">🥳</span></p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Ayush</span> got a new job at HCL Enterprise</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Dev</span> got a new job at HerKey (formerly JobFairfier)</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Deepak</span> got a new job at Stealth Mode</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Ria</span> got a new job at Zomato <span class="ml-1">🍕</span></p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">Sara</span> got a new job at Microsoft</p>
+                        </div>
+                        <div class="placement-item p-3 bg-placement-tag rounded-xl shadow-sm animated-card hover:shadow-md">
+                            <p class="text-sm text-gray-800"><span class="font-semibold text-learnnex-blue">John</span> got a new job at Meta</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Simple JavaScript for Interactivity -->
+    <script>
+        document.getElementById('logoutBtn').addEventListener('click', function() {
+            // In a real application with the full authentication script, this would be:
+            // auth.signOut().then(() => { showView('login'); });
+            
+            showMessage('You have been successfully logged out. Redirecting to login page...', 'text-green-600');
+            
+            // Simulate redirect delay
+            setTimeout(() => {
+                // In a multi-page app, this would redirect to the login page.
+                console.log("Simulating redirect to login page.");
+            }, 1500);
+        });
+
+        // Function to show a custom message box instead of alert()
+        function showMessage(message, colorClass = 'text-learnnex-blue') {
+            const container = document.createElement('div');
+            container.className = `fixed inset-0 bg-gray-600 bg-opacity-75 flex items-center justify-center z-50 transition-opacity duration-300`;
+            container.innerHTML = `
+                <div class="bg-white p-6 rounded-xl shadow-2xl max-w-sm w-full transform transition-transform duration-300 scale-100">
+                    <p class="text-lg font-semibold ${colorClass}">${message}</p>
+                    <button onclick="this.closest('.fixed').remove()" class="mt-4 w-full bg-learnnex-blue text-white py-2 rounded-full hover:bg-learnnex-light-dark transition duration-200">
+                        Close
+                    </button>
+                </div>
+            `;
+            document.body.appendChild(container);
+        }
+    </script>
+
+</body>
+</html>
