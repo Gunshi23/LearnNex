@@ -35,7 +35,6 @@
         }
         /* Custom scrollbar for placement list */
         .placement-list-container {
-            /* Max height and overflow moved to the element's class attributes for better responsiveness */
             scrollbar-width: thin; /* Firefox */
             scrollbar-color: #94a3b8 transparent; /* Firefox */
         }
@@ -95,6 +94,11 @@
             transform: translateY(-2px);
             box-shadow: 0 8px 10px -3px rgba(0, 0, 0, 0.1);
         }
+
+        /* Modal specific styles for smooth transition */
+        .modal-transition {
+            transition: opacity 0.3s ease;
+        }
     </style>
 </head>
 <body class="min-h-screen">
@@ -105,9 +109,7 @@
             <div class="flex items-center space-x-8">
                 <a href="#" class="text-3xl font-extrabold text-learnnex-blue">Learnnex</a>
                 <nav class="hidden md:flex space-x-6 text-gray-700 font-medium">
-                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Programs</a>
-                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Success Stories</a>
-                    <a href="#" class="hover:text-learnnex-blue transition duration-150">Community</a>
+                    
                 </nav>
             </div>
             <button id="logoutBtn" class="flex items-center px-4 py-2 border border-learnnex-blue text-learnnex-blue font-semibold rounded-full hover:bg-learnnex-blue hover:text-white transition duration-200 shadow-md">
@@ -141,7 +143,7 @@
                 <!-- ROW 2: Top Program Cards (3 Cards in a Row) -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Card 1: Product Manager @ Google -->
-                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between cursor-pointer" onclick="showProgramDetails('Product Manager @ Google', '20 WEEKS', 'Mentored by Industry Experts', 'This program is designed to launch your career into top-tier Product Management roles at companies like Google, Meta, and Amazon. Key modules include Product Strategy, UX/UI, and Go-to-Market planning.', 'https://placehold.co/150x80/22c55e/ffffff?text=PM')">
                         <div>
                             <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
                                 <img src="https://placehold.co/150x80/22c55e/ffffff?text=PM" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/22c55e/ffffff?text=PM';">
@@ -153,10 +155,10 @@
                     </div>
 
                     <!-- Card 2: Digital Marketing Mentorship -->
-                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between cursor-pointer" onclick="showProgramDetails('Digital Marketing Mastery', '8 MONTHS', 'Work with Sundu Labs', 'Master the art of digital growth, SEO, SEM, and social media marketing with a focus on real-world brand case studies. This is a hands-on, campaign-driven curriculum.', '/assets/2.jpg')">
                         <div>
                             <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
-                                <img src="https://placehold.co/150x80/ec4899/ffffff?text=DM" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/ec4899/ffffff?text=DM';">
+                                <img src="https://placehold.co/150x80/ec4899/ffffff?text=DM" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='/assets/1.jpg';">
                             </div>
                             <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-pink-400 text-learnnex-dark">8 MONTHS</span>
                             <p class="text-lg text-text-primary-light font-semibold mt-1">Digital Marketing Mastery</p>
@@ -165,10 +167,10 @@
                     </div>
 
                     <!-- Card 3: SEO Mentorship Program - Elite -->
-                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between">
+                    <div class="col-span-1 bg-learnnex-dark p-4 rounded-2xl shadow-xl program-card flex flex-col justify-between cursor-pointer" onclick="showProgramDetails('SEO Mentorship - Elite', '12 WEEKS', 'Founder & MD @ Intelligr', 'A high-intensity program focused on advanced SEO techniques, link building, and content strategy for rapid organic growth. Perfect for aspiring SEO directors.', '/assets/3.jpg')">
                         <div>
                             <div class="w-full h-20 mb-3 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
-                                <img src="https://placehold.co/150x80/22d3ee/ffffff?text=SEO" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/150x80/22d3ee/ffffff?text=SEO';">
+                                <img src="https://placehold.co/150x80/22d3ee/ffffff?text=SEO" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='/assets/4.jpg';">
                             </div>
                             <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-cyan-400 text-learnnex-dark">12 WEEKS</span>
                             <p class="text-lg text-text-primary-light font-semibold mt-1">SEO Mentorship - Elite</p>
@@ -191,7 +193,7 @@
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
                         
                         <!-- Large Recommended Card: Product Management - Elite (Left Half) -->
-                        <div class="bg-learnnex-dark p-6 rounded-2xl shadow-2xl program-card flex flex-col">
+                        <div class="bg-learnnex-dark p-6 rounded-2xl shadow-2xl program-card flex flex-col cursor-pointer" onclick="showProgramDetails('Product Management - Elite', '20 WEEKS', 'Mohammad Saroah', 'The most comprehensive PM course available, featuring 20+ modules, a certification, and direct mentoring from a Google PM. Focus on strategy, execution, and leadership.', 'https://placehold.co/400x200/5046e7/ffffff?text=Mentor+Mohammad')">
                             <div class="w-full h-48 mb-4 rounded-xl bg-learnnex-light-dark flex items-center justify-center overflow-hidden">
                                 <img src="https://placehold.co/400x200/5046e7/ffffff?text=Mentor+Mohammad" alt="Program Mentor" class="h-full w-full object-cover opacity-80" onerror="this.onerror=null; this.src='https://placehold.co/400x200/5046e7/ffffff?text=Mentor+Mohammad';">
                             </div>
@@ -215,13 +217,13 @@
                                 </div>
                             </div>
 
-                            <!-- Success Stories Cards (Vertical Stack) -->
+                            <!-- Success Stories Cards (Vertical Stack) - Not interactive but kept for layout -->
                             <div class="space-y-4">
                                 <!-- Story 1: Jay Mola -->
                                 <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
                                     <div class="flex items-center mb-3">
                                         <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
-                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=J" alt="Jay Mola" class="rounded-full">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=J" alt="Jay Mola" class="rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/40x40/94a3b8/1f2937?text=U';">
                                         </div>
                                         <div>
                                             <p class="font-semibold text-gray-800">Jay Mola</p>
@@ -240,7 +242,7 @@
                                 <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
                                     <div class="flex items-center mb-3">
                                         <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
-                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=S" alt="Shibya Arora" class="rounded-full">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=S" alt="Shibya Arora" class="rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/40x40/94a3b8/1f2937?text=U';">
                                         </div>
                                         <div>
                                             <p class="font-semibold text-gray-800">Shibya Arora</p>
@@ -259,7 +261,7 @@
                                 <div class="bg-card-bg-light p-4 rounded-xl shadow-md border border-gray-100 success-story-card">
                                     <div class="flex items-center mb-3">
                                         <div class="w-10 h-10 rounded-full bg-learnnex-blue flex items-center justify-center mr-3 overflow-hidden">
-                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=H" alt="Hevarth Belakuri" class="rounded-full">
+                                            <img src="https://placehold.co/40x40/3b82f6/ffffff?text=H" alt="Hevarth Belakuri" class="rounded-full" onerror="this.onerror=null; this.src='https://placehold.co/40x40/94a3b8/1f2937?text=U';">
                                         </div>
                                         <div>
                                             <p class="font-semibold text-gray-800">Hevarth Belakuri</p>
@@ -291,42 +293,42 @@
                     <!-- Community Images Grid (Improved responsiveness to 3 columns on sm screens) -->
                     <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-3 gap-4">
                         <!-- Image 1 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl cursor-pointer" onclick="showCommunityDetails('Product Management Hackathon', 'https://placehold.co/600x400/1e1b4b/e0e7ff?text=Product+Hackathon')">
                             <img src="https://placehold.co/600x400/1e1b4b/e0e7ff?text=Product+Hackathon" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">Product Management Hackathon</p>
                             </div>
                         </div>
                         <!-- Image 2 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl cursor-pointer" onclick="showCommunityDetails('Product Management Meetup', 'https://placehold.co/600x400/3730a3/e0e7ff?text=Product+Meetup')">
                             <img src="https://placehold.co/600x400/3730a3/e0e7ff?text=Product+Meetup" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">Product Management Meetup</p>
                             </div>
                         </div>
                         <!-- Image 3 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl cursor-pointer" onclick="showCommunityDetails('Generative AI Meetup', 'https://placehold.co/600x400/2563eb/e0e7ff?text=Generative+AI+Meetup')">
                             <img src="https://placehold.co/600x400/2563eb/e0e7ff?text=Generative+AI+Meetup" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">Generative AI Meetup</p>
                             </div>
                         </div>
                         <!-- Image 4 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block cursor-pointer" onclick="showCommunityDetails('Product Marketing Booth', 'https://placehold.co/600x400/22c55e/ffffff?text=Product+Marketing+Booth')">
                             <img src="https://placehold.co/600x400/22c55e/ffffff?text=Product+Marketing+Booth" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">Product Marketing Booth</p>
                             </div>
                         </div>
                         <!-- Image 5 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block cursor-pointer" onclick="showCommunityDetails('GrowthSchool Kolkata Meetup', 'https://placehold.co/600x400/f59e0b/ffffff?text=GrowthSchool+Kolkata')">
                             <img src="https://placehold.co/600x400/f59e0b/ffffff?text=GrowthSchool+Kolkata" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">GrowthSchool Kolkata Meetup</p>
                             </div>
                         </div>
                         <!-- Image 6 -->
-                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block">
+                        <div class="community-card rounded-xl shadow-lg hover:shadow-xl hidden sm:block cursor-pointer" onclick="showCommunityDetails('Angel Investor Meetup', 'https://placehold.co/600x400/ef4444/ffffff?text=Angel+Investor+Meetup')">
                             <img src="https://placehold.co/600x400/ef4444/ffffff?text=Angel+Investor+Meetup" alt="Community Event" class="w-full h-full object-cover">
                             <div class="community-card-overlay">
                                 <p class="text-xs text-white font-medium">Angel Investor Meetup</p>
@@ -381,17 +383,110 @@
         </div>
     </main>
 
+    <!-- Modal Backdrop and Container (Hidden by default) -->
+    <div id="mainModal" class="hidden fixed inset-0 z-50 bg-gray-900 bg-opacity-75 modal-transition opacity-0 flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-[90%] md:w-full overflow-hidden transform transition-transform duration-300 scale-100" role="dialog" aria-modal="true" aria-labelledby="modalTitle" onclick="event.stopPropagation();">
+            <div class="p-6">
+                <div class="flex justify-between items-start border-b pb-3 mb-4">
+                    <h3 id="modalTitle" class="text-2xl font-bold text-learnnex-dark"></h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600 transition">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                    </button>
+                </div>
+                <div id="modalContent" class="text-gray-700 space-y-4 max-h-[70vh] overflow-y-auto pr-2">
+                    <!-- Dynamic content goes here -->
+                </div>
+                <div class="mt-6 border-t pt-4">
+                    <button onclick="closeModal()" class="w-full bg-learnnex-blue text-white py-3 rounded-xl font-semibold hover:bg-learnnex-light-dark transition duration-200 shadow-md">
+                        Enroll Now / Got It!
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Simple JavaScript for Interactivity -->
     <script>
-        document.getElementById('logoutBtn').addEventListener('click', function() {
-            // In a real application with the full authentication script, this would be:
-            // auth.signOut().then(() => { showView('login'); });
+        // --- Modal Logic ---
+        const modal = document.getElementById('mainModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalContent = document.getElementById('modalContent');
+
+        function openModal(title, contentHtml) {
+            modalTitle.textContent = title;
+            modalContent.innerHTML = contentHtml;
+            modal.classList.remove('hidden', 'opacity-0');
+            modal.classList.add('opacity-100');
+            document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+            // Close when clicking the backdrop
+            modal.onclick = function(event) {
+                if (event.target === modal) {
+                    closeModal();
+                }
+            };
+        }
+
+        function closeModal() {
+            modal.classList.add('opacity-0');
+            modal.classList.remove('opacity-100');
+            document.body.style.overflow = ''; // Restore scrolling
+
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modalTitle.textContent = '';
+                modalContent.innerHTML = '';
+                modal.onclick = null; // Clean up the listener
+            }, 300); // Match transition duration
+        }
+        
+        // Modal content generation for Programs
+        function showProgramDetails(title, duration, mentor, description, imageUrl) {
+            // Robust fallback for the program image in the modal
+            const fallbackUrl = `https://placehold.co/400x200/94a3b8/0f172a?text=${encodeURIComponent(title.split(' ')[0] + ' Program')}`;
+
+            const content = `
+                <div class="text-center mb-4">
+                    <img src="${imageUrl}" alt="${title}" class="w-full max-h-40 object-cover rounded-xl shadow-md mx-auto mb-4" 
+                         onerror="this.onerror=null; this.src='${fallbackUrl}';">
+                    <span class="text-sm font-semibold px-3 py-1 rounded-full bg-yellow-400 text-learnnex-dark">${duration}</span>
+                </div>
+                <p class="text-lg font-medium text-learnnex-dark">${mentor}</p>
+                <p class="text-sm text-gray-500 mb-4">${description}</p>
+                <h4 class="font-bold text-gray-800 mt-4 border-t pt-3">What You Will Gain:</h4>
+                <ul class="list-disc list-inside text-sm text-gray-700 space-y-1">
+                    <li>Weekly 1:1 mentorship sessions.</li>
+                    <li>Real-world capstone project included.</li>
+                    <li>Lifetime access to course materials.</li>
+                    <li>Dedicated placement support team.</li>
+                    <li>Official Learnnex Certification.</li>
+                </ul>
+            `;
+            openModal(title, content);
+        }
+
+        // Modal content generation for Community Events
+        function showCommunityDetails(title, imageUrl) {
+            // Robust fallback for the community image in the modal
+            const fallbackUrl = `https://placehold.co/600x400/3730a3/e0e7ff?text=${encodeURIComponent(title.split(' ').slice(0, 2).join(' ') + '+Event')}`;
             
+            const content = `
+                <div class="relative w-full aspect-video rounded-xl overflow-hidden shadow-lg mb-4">
+                    <img src="${imageUrl}" alt="${title}" class="w-full h-full object-cover" 
+                         onerror="this.onerror=null; this.src='${fallbackUrl}';">
+                </div>
+                <p class="text-base text-gray-600">This event, the **${title}**, brought together ${title.includes('AI') ? 'AI enthusiasts and product experts' : 'industry leaders and ambitious students'} for a night of networking and deep dives into the latest industry trends. These gatherings are the heart of the Learnnex experience.</p>
+                <p class="text-sm font-semibold text-learnnex-blue mt-4">Next Event: November 25th in London - RSVP Required.</p>
+            `;
+            openModal(title, content);
+        }
+
+        // --- Existing Logout Logic ---
+        document.getElementById('logoutBtn').addEventListener('click', function() {
             showMessage('You have been successfully logged out. Redirecting to login page...', 'text-green-600');
             
             // Simulate redirect delay
             setTimeout(() => {
-                // In a multi-page app, this would redirect to the login page.
                 console.log("Simulating redirect to login page.");
             }, 1500);
         });
